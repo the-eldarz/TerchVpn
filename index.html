@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Terch VPN</title>
+    <script src="https://telegram.org/js/telegram-web-app.js?56"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+        body {
+            background: #0f172a;
+            color: #e2e8f0;
+            min-height: 100vh;
+            padding: 16px 12px 30px;
+        }
+        .header {
+            text-align: center;
+            padding: 12px 0 16px;
+        }
+        .header h1 {
+            font-size: 26px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #38bdf8, #818cf8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .header p {
+            color: #94a3b8;
+            font-size: 14px;
+            margin-top: 2px;
+        }
+        .card {
+            background: #1e293b;
+            border-radius: 16px;
+            padding: 16px 18px;
+            margin-bottom: 12px;
+            border: 1px solid #334155;
+        }
+        .card .label {
+            font-size: 12px;
+            color: #94a3b8;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .card .value {
+            font-size: 18px;
+            font-weight: 600;
+            color: #f1f5f9;
+            margin-top: 2px;
+        }
+        .status-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+        .active { background: #22c55e22; color: #4ade80; border: 1px solid #4ade80; }
+        .expired { background: #ef444422; color: #f87171; border: 1px solid #f87171; }
+        .menu-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 8px;
+        }
+        .menu-btn {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: #0f172a;
+            border: 1px solid #334155;
+            border-radius: 12px;
+            padding: 14px 18px;
+            color: #e2e8f0;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: 0.15s;
+            text-decoration: none;
+        }
+        .menu-btn:active { background: #1e293b; opacity: 0.8; }
+        .menu-btn .icon { font-size: 20px; margin-right: 12px; }
+        .menu-btn .arrow { color: #64748b; font-size: 14px; }
+        .menu-btn.admin { border-color: #8b5cf6; background: #2e1065; }
+        .divider {
+            border-top: 1px solid #334155;
+            margin: 12px 0;
+        }
+        .footer {
+            text-align: center;
+            font-size: 12px;
+            color: #475569;
+            margin-top: 20px;
+        }
+        .hidden { display: none; }
+        .key-row {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 8px;
+        }
+        .key-btn {
+            flex: 1;
+            background: #0f172a;
+            border: 1px solid #334155;
+            border-radius: 10px;
+            padding: 12px;
+            text-align: center;
+            font-size: 14px;
+            font-weight: 500;
+            color: #cbd5e1;
+            cursor: pointer;
+            transition: 0.15s;
+        }
+        .key-btn:active { background: #1e293b; }
+        .key-btn.lite { border-color: #3b82f6; }
+        .key-btn.universal { border-color: #f59e0b; }
+        .key-link {
+            color: #38bdf8;
+            word-break: break-all;
+            font-size: 13px;
+            display: block;
+            margin-top: 6px;
+        }
+        .copy-btn {
+            background: #2563eb;
+            border: none;
+            color: white;
+            padding: 6px 14px;
+            border-radius: 8px;
+            font-size: 13px;
+            cursor: pointer;
+            margin-top: 6px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>🌊 Terch VPN</h1>
+        <p>Быстрее горной реки</p>
+    </div>
+
+    <!-- Карточка профиля -->
+    <div class="card">
+        <div class="label">Ваш Telegram ID</div>
+        <div class="value" id="userId">—</div>
+        <div style="margin-top:10px;">
+            <span class="label">Статус подписки</span>
+            <div style="margin-top:4px;">
+                <span class="status-badge" id="statusBadge">Загрузка…</span>
+                <span style="margin-left:8px;font-size:14px;color:#94a3b8;" id="expiryText"></span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Меню -->
+    <div class="menu-grid">
+
+        <!-- Оплатить VPN -->
+        <div class="menu-btn" id="btnPayment">
+            <span><span class="icon">💳</span> Оплатить VPN</span>
+            <span class="arrow">→</span>
+        </div>
+
+        <!-- Настроить VPN -->
+        <div class="menu-btn" id="btnSetup">
+            <span><span class="icon">⚙️</span> Настроить VPN</span>
+            <span class="arrow">→</span>
+        </div>
+
+        <!-- Ключи доступа (разворачивается) -->
+        <div class="menu-btn" id="btnKeys">
+            <span><span class="icon">🔑</span> Ключ доступа</span>
+            <span class="arrow">▼</span>
+        </div>
+        <div id="keysSubmenu" class="hidden" style="padding:0 6px 6px;">
+            <div class="key-row">
+                <div class="key-btn lite" id="keyLite">📦 LITE</div>
+                <div class="key-btn universal" id="keyUniversal">💎 UNIVERSAL</div>
+            </div>
+            <div id="keyDisplay" style="margin-top:8px;"></div>
+        </div>
+
+        <!-- Пригласить друга -->
+        <div class="menu-btn" id="btnRef">
+            <span><span class="icon">👥</span> Пригласить друга</span>
+            <span class="arrow">→</span>
+        </div>
+
+        <!-- Помощь -->
+        <div class="menu-btn" id="btnHelp">
+            <span><span class="icon">ℹ️</span> Помощь</span>
+            <span class="arrow">→</span>
+        </div>
+
+        <!-- Новости и акции -->
+        <a class="menu-btn" id="btnNews" href="#" target="_blank">
+            <span><span class="icon">📢</span> Новости и акции ↗️</span>
+            <span class="arrow">→</span>
+        </a>
+
+        <!-- Админка (только для админа, показываем позже) -->
+        <div class="menu-btn admin hidden" id="btnAdmin">
+            <span><span class="icon">👑</span> Административная панель</span>
+            <span class="arrow">→</span>
+        </div>
+
+    </div>
+
+    <div class="footer">© 2026 Terch VPN · Все права защищены</div>
+
+    <script>
+        // === Инициализация Telegram Web App ===
+        const tg = window.Telegram.WebApp;
+        tg.expand();
+        tg.ready();
+
+        // === Данные пользователя ===
+        const user = tg.initDataUnsafe?.user;
+        const userId = user ? user.id : null;
+        const isAdmin = (userId === 7121553631); // ⚠️ замени на свой ADMIN_ID
+
+        // === DOM-элементы ===
+        const userIdEl = document.getElementById('userId');
+        const statusBadge = document.getElementById('statusBadge');
+        const expiryText = document.getElementById('expiryText');
+        const keysSubmenu = document.getElementById('keysSubmenu');
+        const keyDisplay = document.getElementById('keyDisplay');
+        const btnAdmin = document.getElementById('btnAdmin');
+
+        // === Отображение ID ===
+        if (userId) {
+            userIdEl.textContent = userId;
+        } else {
+            userIdEl.textContent = 'Не определен (откройте через бота)';
+        }
+
+        // === Показываем админку, если админ ===
+        if (isAdmin) {
+            btnAdmin.classList.remove('hidden');
+        }
+
+        // === Заглушка статуса (позже заменим на реальный API) ===
+        function updateStatus() {
+            // Здесь можно сделать fetch к твоему API, например:
+            // fetch(`https://твой-val-town-url/user-status?id=${userId}`)
+            // .then(r => r.json()).then(data => { ... })
+            // Пока демо:
+            statusBadge.textContent = '🟢 Активен';
+            statusBadge.className = 'status-badge active';
+            expiryText.textContent = 'до 31.12.2026 (демо)';
+        }
+        if (userId) updateStatus();
+
+        // === Обработка кнопок ===
+
+        // 1. Оплатить — отправляем команду боту (или открываем платежное окно)
+        document.getElementById('btnPayment').addEventListener('click', () => {
+            tg.sendData('open_payment'); // бот получит этот текст в Message
+            tg.close(); // закрываем Web App, чтобы пользователь видел ответ бота
+        });
+
+        // 2. Настроить VPN
+        document.getElementById('btnSetup').addEventListener('click', () => {
+            tg.sendData('setup_step1');
+            tg.close();
+        });
+
+        // 3. Ключи – разворачиваем/сворачиваем подменю
+        document.getElementById('btnKeys').addEventListener('click', () => {
+            const isHidden = keysSubmenu.classList.contains('hidden');
+            keysSubmenu.classList.toggle('hidden');
+            document.querySelector('#btnKeys .arrow').textContent = isHidden ? '▲' : '▼';
+        });
+
+        // 3a. Кнопки LITE и UNIVERSAL
+        document.getElementById('keyLite').addEventListener('click', () => {
+            if (!userId) return;
+            const link = `https://raw.githubusercontent.com/zieng2/wl/main/vless_lite.txt?user=${userId}`;
+            keyDisplay.innerHTML = `
+                <div style="background:#0f172a;padding:10px;border-radius:10px;border:1px solid #334155;">
+                    <span style="color:#94a3b8;font-size:13px;">📦 LITE ключ:</span>
+                    <a href="${link}" target="_blank" class="key-link">${link}</a>
+                    <button class="copy-btn" onclick="navigator.clipboard.writeText('${link}')">📋 Копировать</button>
+                    <br><button class="copy-btn" style="background:#2563eb;margin-top:4px;" onclick="location.href='happ://import?url=${encodeURIComponent(link)}'">🚀 Открыть в Happ</button>
+                </div>
+            `;
+        });
+
+        document.getElementById('keyUniversal').addEventListener('click', () => {
+            if (!userId) return;
+            const link = `https://raw.githubusercontent.com/zieng2/wl/main/vless_universal.txt?user=${userId}`;
+            keyDisplay.innerHTML = `
+                <div style="background:#0f172a;padding:10px;border-radius:10px;border:1px solid #334155;">
+                    <span style="color:#94a3b8;font-size:13px;">💎 UNIVERSAL ключ:</span>
+                    <a href="${link}" target="_blank" class="key-link">${link}</a>
+                    <button class="copy-btn" onclick="navigator.clipboard.writeText('${link}')">📋 Копировать</button>
+                    <br><button class="copy-btn" style="background:#2563eb;margin-top:4px;" onclick="location.href='happ://import?url=${encodeURIComponent(link)}'">🚀 Открыть в Happ</button>
+                </div>
+            `;
+        });
+
+        // 4. Пригласить друга
+        document.getElementById('btnRef').addEventListener('click', () => {
+            tg.sendData('open_ref');
+            tg.close();
+        });
+
+        // 5. Помощь
+        document.getElementById('btnHelp').addEventListener('click', () => {
+            tg.sendData('open_help');
+            tg.close();
+        });
+
+        // 6. Новости – открываем канал (ссылка в атрибуте href)
+        // Ссылку нужно задать динамически, но можно и статически
+        document.getElementById('btnNews').href = 'https://t.me/TerchVPN'; // замени на свой канал
+
+        // 7. Админка
+        document.getElementById('btnAdmin').addEventListener('click', () => {
+            tg.sendData('open_admin_panel');
+            tg.close();
+        });
+
+        // Если пользователь закрыл Web App, ничего не делаем.
+        console.log('Terch VPN Web App готов');
+    </script>
+</body>
+</html>
