@@ -584,7 +584,7 @@
                 <svg class="icon-svg" viewBox="0 0 24 24"><path d="M4 4h16v16H4z"/><line x1="8" y1="8" x2="16" y2="8"/><line x1="8" y1="12" x2="14" y2="12"/><line x1="8" y1="16" x2="12" y2="16"/></svg>
                 <span class="card-label">Новости и акции</span>
             </a>
-            <!-- Помощь (пока ссылка на бота) -->
+            <!-- Помощь (ссылка на бота) -->
             <a class="menu-card" id="btnHelp" href="https://t.me/TerchVPN_support" target="_blank" aria-label="Помощь и поддержка">
                 <svg class="icon-svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
                 <span class="card-label">Помощь / Поддержка</span>
@@ -761,6 +761,11 @@
         tg.expand();
         tg.ready();
 
+        // Лёгкая вибрация при старте приложения
+        if (navigator.vibrate) {
+            navigator.vibrate(20);
+        }
+
         const user = tg.initDataUnsafe?.user;
         const userId = user ? user.id : null;
 
@@ -780,7 +785,7 @@
         const statStatus = document.getElementById('statStatus');
 
         // ================================================================
-        //  УПРАВЛЕНИЕ SPLASH (минимальное время 6 секунд)
+        //  УПРАВЛЕНИЕ SPLASH (минимальное время 3 секунды)
         // ================================================================
         let splashStartTime = Date.now();
         let splashHidden = false;
@@ -789,7 +794,7 @@
         function hideSplash() {
             if (splashHidden) return;
             const elapsed = Date.now() - splashStartTime;
-            const minDisplay = 6000; // 6 секунд
+            const minDisplay = 3000; // 3 секунды
             if (elapsed >= minDisplay) {
                 splash.classList.add('hidden');
                 setTimeout(() => { splash.style.display = 'none'; }, 800);
@@ -810,7 +815,7 @@
             }
         }
 
-        // Принудительный таймер на 6 секунд
+        // Принудительный таймер на 3 секунды
         splashForceTimer = setTimeout(() => {
             if (!splashHidden) {
                 splash.classList.add('hidden');
@@ -818,7 +823,7 @@
                 splashHidden = true;
                 splashForceTimer = null;
             }
-        }, 6000);
+        }, 3000);
 
         // ================================================================
         //  УТИЛИТЫ
@@ -1495,7 +1500,7 @@
         document.getElementById('themesBack').addEventListener('click', () => navigateTo('profile'));
         document.getElementById('openThemesBtn').addEventListener('click', () => navigateTo('themes'));
 
-        console.log('Terch VPN — финальная версия: заставка 6 секунд, основные + запасной (rjsxrd и igareck)');
+        console.log('Terch VPN — финальная версия: заставка 3 секунды с вибрацией, основные + запасной (rjsxrd и igareck)');
     </script>
 </body>
 </html>
