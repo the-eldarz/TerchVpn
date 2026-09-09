@@ -780,7 +780,7 @@
         const statStatus = document.getElementById('statStatus');
 
         // ================================================================
-        //  УПРАВЛЕНИЕ SPLASH (минимальное время 9 секунд)
+        //  УПРАВЛЕНИЕ SPLASH (минимальное время 6 секунд)
         // ================================================================
         let splashStartTime = Date.now();
         let splashHidden = false;
@@ -789,7 +789,7 @@
         function hideSplash() {
             if (splashHidden) return;
             const elapsed = Date.now() - splashStartTime;
-            const minDisplay = 9000;
+            const minDisplay = 6000; // 6 секунд
             if (elapsed >= minDisplay) {
                 splash.classList.add('hidden');
                 setTimeout(() => { splash.style.display = 'none'; }, 800);
@@ -810,6 +810,7 @@
             }
         }
 
+        // Принудительный таймер на 6 секунд
         splashForceTimer = setTimeout(() => {
             if (!splashHidden) {
                 splash.classList.add('hidden');
@@ -817,7 +818,7 @@
                 splashHidden = true;
                 splashForceTimer = null;
             }
-        }, 9000);
+        }, 6000);
 
         // ================================================================
         //  УТИЛИТЫ
@@ -1181,7 +1182,6 @@
         });
         document.getElementById('btnKeys').addEventListener('click', () => navigateTo('keys'));
         document.getElementById('btnNews').href = 'https://t.me/TerchVPNnews';
-        // Помощь уже ведёт на бота через href в HTML
 
         // ================================================================
         //  НАСТРОЙКА VPN
@@ -1221,7 +1221,7 @@
         const keysContentInner = document.getElementById('keysContentInner');
         const keysBackBtn = document.getElementById('keysBack');
 
-        let currentProviderLevel = 'main'; // 'main', 'backup-select', 'zieng2', 'rjsxrd', 'igareck-select', 'igareck-black', 'igareck-white'
+        let currentProviderLevel = 'main';
 
         function resetKeysView() {
             keysProviderMenu.classList.remove('hidden');
@@ -1231,7 +1231,6 @@
             currentProviderLevel = 'main';
         }
 
-        // Показать подменю запасного варианта (rjsxrd / igareck)
         function showBackupSubMenu() {
             keysProviderMenu.classList.add('hidden');
             keysContent.classList.remove('hidden');
@@ -1260,7 +1259,6 @@
             document.getElementById('backupSubIgareck').addEventListener('click', () => showIgareckSubMenu());
         }
 
-        // Показать подменю igareck (BLACK / WHITE)
         function showIgareckSubMenu() {
             keysContentInner.innerHTML = `
                 <div style="display:flex;flex-direction:column;gap:10px;margin-top:8px;">
@@ -1287,7 +1285,6 @@
             document.getElementById('igareckSubWhite').addEventListener('click', () => renderIgareckCategory('white'));
         }
 
-        // Показать список файлов для категории (black/white)
         function renderIgareckCategory(category) {
             const files = category === 'black' ? [
                 { label: 'BLACK_SS+All_RUS', link: 'https://raw.githubusercontent.com/igareck/vpn-configs-for-russia/main/BLACK_SS%2BAll_RUS.txt' },
@@ -1333,7 +1330,6 @@
             });
         }
 
-        // ----- КЛЮЧИ RJSXRD -----
         function showKeysForProvider(provider) {
             if (provider === 'rjsxrd') {
                 renderRjsKeys();
@@ -1384,7 +1380,6 @@
             });
         }
 
-        // ----- ОСНОВНОЙ ВАРИАНТ (zieng2) -----
         function showMainProvider() {
             keysProviderMenu.classList.add('hidden');
             keysContent.classList.remove('hidden');
@@ -1422,7 +1417,6 @@
             });
         }
 
-        // ----- Общая функция отображения ключа -----
         function showKey(containerId, label, link) {
             const container = document.getElementById(containerId);
             if (!container) return;
@@ -1445,11 +1439,9 @@
             }
         }
 
-        // ----- Обработчики кнопок выбора -----
         document.getElementById('keysProviderMain').addEventListener('click', showMainProvider);
         document.getElementById('keysProviderBackup').addEventListener('click', showBackupSubMenu);
 
-        // Кнопка "Назад"
         keysBackBtn.addEventListener('click', () => {
             if (currentProviderLevel === 'main') {
                 navigateTo('main');
@@ -1503,7 +1495,7 @@
         document.getElementById('themesBack').addEventListener('click', () => navigateTo('profile'));
         document.getElementById('openThemesBtn').addEventListener('click', () => navigateTo('themes'));
 
-        console.log('Terch VPN — финальная версия: основные + запасной (rjsxrd и igareck BLACK/WHITE)');
+        console.log('Terch VPN — финальная версия: заставка 6 секунд, основные + запасной (rjsxrd и igareck)');
     </script>
 </body>
 </html>
