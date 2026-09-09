@@ -5,154 +5,66 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Terch VPN</title>
     <script src="https://telegram.org/js/telegram-web-app.js?56"></script>
-    <style id="theme-styles">
-        /* ===== БАЗОВЫЕ ПЕРЕМЕННЫЕ (тёмная по умолчанию) ===== */
+    <style>
+        /* ===== ТЕМЫ (только 2) ===== */
         :root {
-            --bg: #0f172a;
-            --card-bg: #1e293b;
-            --border: #334155;
-            --text: #e2e8f0;
-            --text-muted: #94a3b8;
-            --accent: #38bdf8;
-            --accent-grad: linear-gradient(135deg, #38bdf8, #818cf8);
-            --btn-bg: #0f172a;
-            --btn-border: #334155;
-            --shadow: 0 20px 60px rgba(0,0,0,0.6);
-            --badge-active: #22c55e22;
-            --badge-active-text: #4ade80;
-            --badge-active-border: #4ade80;
-            --badge-expired: #ef444422;
-            --badge-expired-text: #f87171;
-            --badge-expired-border: #f87171;
-        }
-        [data-theme="dark-blue"] {
             --bg: #0a1628;
-            --card-bg: #14203e;
-            --border: #2a3a6a;
+            --card-bg: rgba(255, 255, 255, 0.04);
+            --card-border: rgba(255, 255, 255, 0.06);
             --text: #dbeafe;
             --text-muted: #93b4e8;
             --accent: #60a5fa;
             --accent-grad: linear-gradient(135deg, #3b82f6, #6366f1);
-            --btn-bg: #0a1628;
-            --btn-border: #2a3a6a;
-            --shadow: 0 20px 60px rgba(0,10,50,0.8);
-        }
-        [data-theme="dark-purple"] {
-            --bg: #140a1f;
-            --card-bg: #241a3a;
-            --border: #4a2a6a;
-            --text: #ede9fe;
-            --text-muted: #b8a5e8;
-            --accent: #a78bfa;
-            --accent-grad: linear-gradient(135deg, #8b5cf6, #a78bfa);
-            --btn-bg: #140a1f;
-            --btn-border: #4a2a6a;
-            --shadow: 0 20px 60px rgba(30,0,60,0.8);
-        }
-        [data-theme="dark-green"] {
-            --bg: #0a1a12;
-            --card-bg: #14352a;
-            --border: #2a5a45;
-            --text: #d1fae5;
-            --text-muted: #86c8b0;
-            --accent: #34d399;
-            --accent-grad: linear-gradient(135deg, #10b981, #34d399);
-            --btn-bg: #0a1a12;
-            --btn-border: #2a5a45;
-            --shadow: 0 20px 60px rgba(0,30,10,0.8);
-        }
-        [data-theme="dark-red"] {
-            --bg: #1a0a0a;
-            --card-bg: #3a1a1a;
-            --border: #6a2a2a;
-            --text: #fecaca;
-            --text-muted: #d9a8a8;
-            --accent: #f87171;
-            --accent-grad: linear-gradient(135deg, #ef4444, #f87171);
-            --btn-bg: #1a0a0a;
-            --btn-border: #6a2a2a;
-            --shadow: 0 20px 60px rgba(50,0,0,0.8);
-        }
-        [data-theme="dark-orange"] {
-            --bg: #1a120a;
-            --card-bg: #3a2215;
-            --border: #6a3d25;
-            --text: #fef3c7;
-            --text-muted: #d9a87e;
-            --accent: #fb923c;
-            --accent-grad: linear-gradient(135deg, #f59e0b, #fb923c);
-            --btn-bg: #1a120a;
-            --btn-border: #6a3d25;
-            --shadow: 0 20px 60px rgba(50,20,0,0.8);
+            --btn-bg: rgba(255, 255, 255, 0.03);
+            --btn-border: rgba(255, 255, 255, 0.06);
+            --shadow: 0 20px 60px rgba(0,10,50,0.5);
+            --badge-active: rgba(34, 197, 94, 0.12);
+            --badge-active-text: #4ade80;
+            --badge-active-border: rgba(74, 222, 128, 0.25);
+            --badge-expired: rgba(239, 68, 68, 0.12);
+            --badge-expired-text: #f87171;
+            --badge-expired-border: rgba(248, 113, 113, 0.25);
+            --toast-bg: rgba(20, 32, 62, 0.7);
+            --toast-text: #dbeafe;
+            --nav-bg: rgba(20, 32, 62, 0.5);
+            --nav-border: rgba(255, 255, 255, 0.05);
+            --tab-active: #60a5fa;
+            --skeleton-bg: rgba(255, 255, 255, 0.04);
+            --skeleton-shine: rgba(255, 255, 255, 0.08);
+            --glass-blur: blur(24px);
+            --glass-inset: inset 0 1px 0 rgba(255,255,255,0.06);
         }
         [data-theme="light-gray"] {
             --bg: #f1f5f9;
-            --card-bg: #ffffff;
-            --border: #cbd5e1;
+            --card-bg: rgba(255, 255, 255, 0.5);
+            --card-border: rgba(255, 255, 255, 0.3);
             --text: #0f172a;
             --text-muted: #475569;
             --accent: #2563eb;
             --accent-grad: linear-gradient(135deg, #2563eb, #7c3aed);
-            --btn-bg: #f8fafc;
-            --btn-border: #cbd5e1;
-            --shadow: 0 20px 60px rgba(0,0,0,0.08);
+            --btn-bg: rgba(255, 255, 255, 0.4);
+            --btn-border: rgba(255, 255, 255, 0.4);
+            --shadow: 0 20px 60px rgba(0,0,0,0.06);
             --badge-active: #dcfce7;
             --badge-active-text: #166534;
             --badge-active-border: #22c55e;
             --badge-expired: #fee2e2;
             --badge-expired-text: #991b1b;
             --badge-expired-border: #ef4444;
-        }
-        [data-theme="light-blue"] {
-            --bg: #e0f2fe;
-            --card-bg: #ffffff;
-            --border: #7dd3fc;
-            --text: #0c4a6e;
-            --text-muted: #38bdf8;
-            --accent: #0284c7;
-            --accent-grad: linear-gradient(135deg, #0284c7, #38bdf8);
-            --btn-bg: #f0f9ff;
-            --btn-border: #7dd3fc;
-            --shadow: 0 20px 60px rgba(0,100,200,0.1);
-        }
-        [data-theme="light-pink"] {
-            --bg: #fce7f3;
-            --card-bg: #ffffff;
-            --border: #f9a8d4;
-            --text: #831843;
-            --text-muted: #db2777;
-            --accent: #db2777;
-            --accent-grad: linear-gradient(135deg, #db2777, #f472b6);
-            --btn-bg: #fdf2f8;
-            --btn-border: #f9a8d4;
-            --shadow: 0 20px 60px rgba(200,0,100,0.08);
-        }
-        [data-theme="light-green"] {
-            --bg: #d1fae5;
-            --card-bg: #ffffff;
-            --border: #6ee7b7;
-            --text: #064e3b;
-            --text-muted: #059669;
-            --accent: #059669;
-            --accent-grad: linear-gradient(135deg, #059669, #34d399);
-            --btn-bg: #ecfdf5;
-            --btn-border: #6ee7b7;
-            --shadow: 0 20px 60px rgba(0,100,50,0.08);
-        }
-        [data-theme="light-lavender"] {
-            --bg: #e0e7ff;
-            --card-bg: #ffffff;
-            --border: #a5b4fc;
-            --text: #3730a3;
-            --text-muted: #6366f1;
-            --accent: #6366f1;
-            --accent-grad: linear-gradient(135deg, #4f46e5, #818cf8);
-            --btn-bg: #eef2ff;
-            --btn-border: #a5b4fc;
-            --shadow: 0 20px 60px rgba(50,50,200,0.08);
+            --toast-bg: rgba(255, 255, 255, 0.7);
+            --toast-text: #0f172a;
+            --nav-bg: rgba(255, 255, 255, 0.6);
+            --nav-border: rgba(0, 0, 0, 0.06);
+            --tab-active: #2563eb;
+            --skeleton-bg: rgba(0, 0, 0, 0.04);
+            --skeleton-shine: rgba(0, 0, 0, 0.06);
+            --glass-blur: blur(24px);
+            --glass-inset: inset 0 1px 0 rgba(255,255,255,0.4);
         }
 
-        /* ===== ОБЩИЕ СТИЛИ ===== */
+        /* ====================================================
+           ГЛОБАЛЬНЫЕ
+           ==================================================== */
         * {
             margin: 0;
             padding: 0;
@@ -163,9 +75,68 @@
             background: var(--bg);
             color: var(--text);
             min-height: 100vh;
-            padding: 16px 12px 30px;
-            transition: background 0.2s, color 0.2s;
+            padding: 16px 12px 80px;
+            transition: background 0.3s, color 0.3s;
+            overflow-x: hidden;
+            touch-action: pan-y;
         }
+
+        /* ===== SPLASH С АНИМИРОВАННОЙ ВОЛНОЙ ===== */
+        #splash {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--bg);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            transition: opacity 0.8s ease;
+        }
+        #splash.hidden { opacity: 0; pointer-events: none; }
+        .wave-container {
+            width: 200px;
+            height: 80px;
+            position: relative;
+            overflow: visible;
+        }
+        .wave-svg {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            fill: none;
+            stroke: var(--accent);
+            stroke-width: 3;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+        .wave1 {
+            animation: waveMove 3s ease-in-out infinite alternate;
+        }
+        .wave2 {
+            animation: waveMove 3s ease-in-out infinite alternate-reverse;
+            opacity: 0.6;
+        }
+        @keyframes waveMove {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(20px); }
+        }
+        #splash .title {
+            margin-top: 20px;
+            font-size: 28px;
+            font-weight: 700;
+            background: var(--accent-grad);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: fadeUp 0.8s ease;
+        }
+        @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* ===== ОСТАЛЬНЫЕ СТИЛИ (без изменений) ===== */
         .header {
             display: flex;
             justify-content: space-between;
@@ -180,336 +151,458 @@
             background-clip: text;
             -webkit-text-fill-color: transparent;
         }
-        .header-actions {
-            display: flex;
-            gap: 10px;
-            align-items: center;
-        }
-        .header-btn {
-            background: var(--btn-bg);
-            border: 1px solid var(--border);
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 20px;
-            cursor: pointer;
-            transition: 0.15s;
-            color: var(--text);
-        }
-        .header-btn:active { opacity: 0.7; }
         .page {
             display: none;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: opacity 0.3s ease, transform 0.3s ease;
         }
-        .page.active { display: block; }
+        .page.active { display: block; opacity: 1; transform: translateY(0); }
+        .page.active .card { animation: cardFadeIn 0.4s ease both; }
+        .page.active .menu-grid-cards .menu-card:nth-child(1) { animation-delay: 0.05s; }
+        .page.active .menu-grid-cards .menu-card:nth-child(2) { animation-delay: 0.1s; }
+        .page.active .menu-grid-cards .menu-card:nth-child(3) { animation-delay: 0.15s; }
+        .page.active .menu-grid-cards .menu-card:nth-child(4) { animation-delay: 0.2s; }
+        @keyframes cardFadeIn {
+            from { opacity: 0; transform: translateY(12px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
         .card {
             background: var(--card-bg);
-            border-radius: 16px;
-            padding: 16px 18px;
-            margin-bottom: 12px;
-            border: 1px solid var(--border);
-            box-shadow: var(--shadow);
-            transition: background 0.2s, border 0.2s;
+            backdrop-filter: var(--glass-blur);
+            -webkit-backdrop-filter: var(--glass-blur);
+            border-radius: 24px;
+            padding: 18px 20px;
+            margin-bottom: 14px;
+            border: 1px solid var(--card-border);
+            box-shadow: var(--shadow), var(--glass-inset);
+            transition: transform 0.2s, background 0.3s, border 0.3s;
         }
-        .card .label {
-            font-size: 12px;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
+        .card:hover { transform: translateY(-2px); }
+        .card .label { font-size: 12px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; }
+        .card .value { font-size: 18px; font-weight: 600; color: var(--text); margin-top: 2px; }
+
+        .skeleton {
+            background: var(--skeleton-bg);
+            border-radius: 8px;
+            height: 20px;
+            width: 100%;
+            position: relative;
+            overflow: hidden;
         }
-        .card .value {
-            font-size: 18px;
-            font-weight: 600;
-            color: var(--text);
-            margin-top: 2px;
+        .skeleton::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, var(--skeleton-shine), transparent);
+            animation: skeletonShine 1.5s infinite;
         }
+        @keyframes skeletonShine {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+        .skeleton-text { height: 14px; margin: 4px 0; }
+        .skeleton-badge { width: 80px; height: 28px; border-radius: 30px; }
+
         .status-badge {
             display: inline-block;
-            padding: 4px 12px;
-            border-radius: 20px;
+            padding: 4px 14px;
+            border-radius: 30px;
             font-size: 14px;
             font-weight: 600;
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            background: rgba(255,255,255,0.03);
+            border: 1px solid transparent;
         }
-        .status-badge.active {
-            background: var(--badge-active);
-            color: var(--badge-active-text);
-            border: 1px solid var(--badge-active-border);
-        }
-        .status-badge.expired {
-            background: var(--badge-expired);
-            color: var(--badge-expired-text);
-            border: 1px solid var(--badge-expired-border);
-        }
-        .menu-grid {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
+        .status-badge.active { background: var(--badge-active); color: var(--badge-active-text); border-color: var(--badge-active-border); }
+        .status-badge.expired { background: var(--badge-expired); color: var(--badge-expired-text); border-color: var(--badge-expired-border); }
+
+        .menu-grid-cards {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
             margin-top: 8px;
         }
+        .menu-card {
+            background: var(--card-bg);
+            backdrop-filter: var(--glass-blur);
+            -webkit-backdrop-filter: var(--glass-blur);
+            border: 1px solid var(--card-border);
+            border-radius: 20px;
+            padding: 18px 10px 14px;
+            text-align: center;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text);
+            cursor: pointer;
+            transition: transform 0.15s, background 0.2s, box-shadow 0.2s;
+            box-shadow: var(--shadow), var(--glass-inset);
+            text-decoration: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .menu-card:active { transform: scale(0.94); background: rgba(255,255,255,0.04); }
+        .menu-card .icon-svg { width: 34px; height: 34px; stroke: currentColor; stroke-width: 1.5; fill: none; opacity: 0.8; }
+        .menu-card .card-label { font-size: 13px; opacity: 0.9; }
+
         .menu-btn {
             display: flex;
             align-items: center;
             justify-content: space-between;
             background: var(--btn-bg);
-            border: 1px solid var(--border);
-            border-radius: 12px;
+            backdrop-filter: var(--glass-blur);
+            -webkit-backdrop-filter: var(--glass-blur);
+            border: 1px solid var(--btn-border);
+            border-radius: 16px;
             padding: 14px 18px;
             color: var(--text);
             font-size: 16px;
             font-weight: 500;
             cursor: pointer;
-            transition: background 0.15s, border 0.15s;
+            transition: transform 0.15s, background 0.2s, border 0.2s;
             text-decoration: none;
+            -webkit-tap-highlight-color: transparent;
+            box-shadow: var(--glass-inset);
         }
-        .menu-btn:active { opacity: 0.7; }
-        .menu-btn .icon { font-size: 20px; margin-right: 12px; }
+        .menu-btn:active { transform: scale(0.96); background: rgba(255,255,255,0.04); }
+        .menu-btn .icon-svg { width: 22px; height: 22px; stroke: currentColor; stroke-width: 1.8; fill: none; margin-right: 12px; opacity: 0.8; flex-shrink: 0; }
         .menu-btn .arrow { color: var(--text-muted); font-size: 14px; }
-        .footer {
-            text-align: center;
-            font-size: 12px;
-            color: var(--text-muted);
-            margin-top: 20px;
-        }
-        .hidden { display: none; }
+        .menu-btn .btn-content { display: flex; align-items: center; }
 
-        /* ----- КЛЮЧИ ----- */
-        .key-section {
-            margin-bottom: 16px;
-        }
-        .key-section-title {
-            font-size: 16px;
-            font-weight: 600;
-            margin-bottom: 8px;
-            color: var(--accent);
-        }
-        .key-row {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            margin: 6px 0;
-        }
+        .key-section { margin-bottom: 16px; }
+        .key-section-title { font-size: 16px; font-weight: 600; margin-bottom: 8px; color: var(--accent); }
+        .key-row { display: flex; flex-wrap: wrap; gap: 8px; margin: 6px 0; }
         .key-btn {
             flex: 1;
             min-width: 80px;
             background: var(--btn-bg);
-            border: 1px solid var(--border);
-            border-radius: 10px;
+            backdrop-filter: var(--glass-blur);
+            -webkit-backdrop-filter: var(--glass-blur);
+            border: 1px solid var(--btn-border);
+            border-radius: 14px;
             padding: 10px 12px;
             text-align: center;
             font-size: 14px;
             font-weight: 500;
             color: var(--text);
             cursor: pointer;
-            transition: 0.15s;
+            transition: transform 0.15s, background 0.2s;
+            -webkit-tap-highlight-color: transparent;
+            box-shadow: var(--glass-inset);
         }
-        .key-btn:active { opacity: 0.7; }
-        .key-btn.lite { border-color: #3b82f6; }
-        .key-btn.universal { border-color: #f59e0b; }
-        .key-btn.bypass { border-color: #8b5cf6; }
-        .key-link {
-            color: var(--accent);
-            word-break: break-all;
-            font-size: 13px;
-            display: block;
-            margin-top: 6px;
-        }
+        .key-btn:active { transform: scale(0.94); background: rgba(255,255,255,0.04); }
+        .key-btn.lite { border-color: rgba(59, 130, 246, 0.4); }
+        .key-btn.universal { border-color: rgba(245, 158, 11, 0.4); }
+        .key-btn.bypass { border-color: rgba(139, 92, 246, 0.4); }
+        .key-link { color: var(--accent); word-break: break-all; font-size: 13px; display: block; margin-top: 6px; }
         .copy-btn {
             background: var(--accent);
             border: none;
             color: #fff;
             padding: 6px 14px;
-            border-radius: 8px;
+            border-radius: 12px;
             font-size: 13px;
             cursor: pointer;
-            margin-top: 6px;
-            transition: 0.15s;
+            transition: transform 0.15s, opacity 0.2s;
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            box-shadow: var(--glass-inset);
         }
-        .copy-btn:active { opacity: 0.7; }
+        .copy-btn:active { transform: scale(0.94); }
         .key-display-box {
             background: var(--btn-bg);
-            padding: 10px;
-            border-radius: 10px;
-            border: 1px solid var(--border);
+            backdrop-filter: var(--glass-blur);
+            -webkit-backdrop-filter: var(--glass-blur);
+            padding: 12px;
+            border-radius: 16px;
+            border: 1px solid var(--btn-border);
             margin-top: 6px;
+            box-shadow: var(--glass-inset);
         }
 
-        /* ----- ТЕМЫ ----- */
-        .theme-group {
-            margin-bottom: 16px;
+        .profile-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: var(--accent-grad);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 12px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.2), var(--glass-inset);
+            backdrop-filter: var(--glass-blur);
+            -webkit-backdrop-filter: var(--glass-blur);
         }
-        .theme-group-title {
-            font-size: 14px;
-            font-weight: 600;
-            color: var(--text-muted);
-            margin-bottom: 8px;
-            letter-spacing: 0.5px;
-            text-transform: uppercase;
-        }
-        .theme-grid {
+        .profile-avatar svg { width: 40px; height: 40px; stroke: #fff; stroke-width: 1.5; fill: none; }
+        .profile-name { text-align: center; font-size: 20px; font-weight: 700; margin-bottom: 4px; }
+        .profile-sub { text-align: center; font-size: 14px; color: var(--text-muted); }
+        .profile-stats {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 12px;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin: 16px 0;
         }
+        .stat-box {
+            background: var(--btn-bg);
+            backdrop-filter: var(--glass-blur);
+            -webkit-backdrop-filter: var(--glass-blur);
+            border-radius: 16px;
+            padding: 12px;
+            text-align: center;
+            border: 1px solid var(--btn-border);
+            box-shadow: var(--glass-inset);
+        }
+        .stat-box .num { font-size: 22px; font-weight: 700; color: var(--accent); }
+        .stat-box .lbl { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+
+        .settings-group { margin-top: 12px; }
+        .settings-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 14px 0;
+            border-bottom: 1px solid var(--btn-border);
+        }
+        .settings-item:last-child { border-bottom: none; }
+        .settings-item .label { font-size: 16px; font-weight: 500; }
+        .settings-item .desc { font-size: 13px; color: var(--text-muted); }
+        .settings-item .icon-svg { width: 22px; height: 22px; stroke: currentColor; stroke-width: 1.5; fill: none; margin-right: 10px; opacity: 0.7; flex-shrink: 0; }
+        .settings-item .left { display: flex; align-items: center; }
+
+        .theme-selector-btn {
+            background: var(--btn-bg);
+            backdrop-filter: var(--glass-blur);
+            -webkit-backdrop-filter: var(--glass-blur);
+            border: 1px solid var(--btn-border);
+            border-radius: 30px;
+            padding: 6px 16px;
+            font-size: 14px;
+            color: var(--text);
+            cursor: pointer;
+            transition: transform 0.15s;
+            box-shadow: var(--glass-inset);
+        }
+        .theme-selector-btn:active { transform: scale(0.94); }
         .theme-option {
             display: flex;
             flex-direction: column;
             align-items: center;
             gap: 6px;
             cursor: pointer;
-            padding: 8px 4px;
-            border-radius: 12px;
+            padding: 12px 16px;
+            border-radius: 16px;
             border: 2px solid transparent;
             transition: 0.15s;
+            background: var(--btn-bg);
+            backdrop-filter: var(--glass-blur);
+            -webkit-backdrop-filter: var(--glass-blur);
         }
-        .theme-option.active {
-            border-color: var(--accent);
-            background: var(--card-bg);
-        }
-        .theme-option .circle {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            border: 2px solid var(--border);
-            flex-shrink: 0;
-        }
-        .theme-option .name {
-            font-size: 10px;
-            color: var(--text-muted);
-            text-align: center;
-            line-height: 1.2;
-        }
-        .theme-dark-blue .circle { background: #0a1628; }
-        .theme-dark-purple .circle { background: #140a1f; }
-        .theme-dark-green .circle { background: #0a1a12; }
-        .theme-dark-red .circle { background: #1a0a0a; }
-        .theme-dark-orange .circle { background: #1a120a; }
+        .theme-option.active { border-color: var(--accent); background: rgba(255,255,255,0.05); }
+        .theme-option .circle { width: 48px; height: 48px; border-radius: 50%; border: 2px solid var(--btn-border); flex-shrink: 0; }
+        .theme-option .name { font-size: 14px; color: var(--text); }
+        .theme-dark-blue .circle { background: #0a1628; border-color: #2a3a6a; }
         .theme-light-gray .circle { background: #f1f5f9; border-color: #cbd5e1; }
-        .theme-light-blue .circle { background: #e0f2fe; border-color: #7dd3fc; }
-        .theme-light-pink .circle { background: #fce7f3; border-color: #f9a8d4; }
-        .theme-light-green .circle { background: #d1fae5; border-color: #6ee7b7; }
-        .theme-light-lavender .circle { background: #e0e7ff; border-color: #a5b4fc; }
+        .theme-grid { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
 
-        /* ----- НАСТРОЙКИ ----- */
-        .settings-item {
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: var(--nav-bg);
+            backdrop-filter: var(--glass-blur);
+            -webkit-backdrop-filter: var(--glass-blur);
+            border-top: 1px solid var(--nav-border);
             display: flex;
+            justify-content: space-around;
+            padding: 8px 0 12px;
+            z-index: 100;
+            transition: background 0.3s, border 0.3s;
+            box-shadow: var(--glass-inset);
+        }
+        .bottom-nav .tab {
+            display: flex;
+            flex-direction: column;
             align-items: center;
-            justify-content: space-between;
-            padding: 12px 0;
-            border-bottom: 1px solid var(--border);
-        }
-        .settings-item:last-child {
-            border-bottom: none;
-        }
-        .settings-item .label {
-            font-size: 16px;
-            font-weight: 500;
-            color: var(--text);
-        }
-        .settings-item .desc {
-            font-size: 13px;
+            gap: 2px;
+            cursor: pointer;
+            padding: 4px 16px;
+            border-radius: 30px;
+            transition: 0.2s;
             color: var(--text-muted);
+            font-size: 12px;
+            font-weight: 500;
+            border: none;
+            background: transparent;
+            -webkit-tap-highlight-color: transparent;
         }
-        .toggle {
-            position: relative;
-            width: 48px;
-            height: 28px;
-            background: var(--border);
-            border-radius: 14px;
-            cursor: pointer;
-            transition: 0.2s;
-            flex-shrink: 0;
-        }
-        .toggle.active {
-            background: var(--accent);
-        }
-        .toggle .knob {
-            position: absolute;
-            top: 2px;
-            left: 2px;
-            width: 24px;
-            height: 24px;
-            border-radius: 50%;
-            background: #fff;
-            transition: 0.2s;
-        }
-        .toggle.active .knob {
-            left: 22px;
-        }
+        .bottom-nav .tab .tab-icon { width: 24px; height: 24px; stroke: currentColor; stroke-width: 1.5; fill: none; transition: 0.2s; }
+        .bottom-nav .tab.active { color: var(--tab-active); }
+        .bottom-nav .tab.active .tab-icon { transform: scale(1.1); }
+        .bottom-nav .tab:active { transform: scale(0.92); }
 
-        /* ----- ВСПОМОГАТЕЛЬНЫЕ КЛАССЫ ----- */
-        .back-link {
-            color: var(--accent);
-            cursor: pointer;
+        #toast {
+            position: fixed;
+            bottom: 100px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--toast-bg);
+            backdrop-filter: var(--glass-blur);
+            -webkit-backdrop-filter: var(--glass-blur);
+            color: var(--toast-text);
+            padding: 10px 24px;
+            border-radius: 40px;
             font-size: 15px;
             font-weight: 500;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.3), var(--glass-inset);
+            border: 1px solid var(--card-border);
+            opacity: 0;
+            transition: opacity 0.3s, transform 0.3s;
+            pointer-events: none;
+            z-index: 1000;
+            white-space: nowrap;
         }
+        #toast.visible { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+        #pullIndicator {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-muted);
+            font-size: 14px;
+            background: var(--nav-bg);
+            backdrop-filter: var(--glass-blur);
+            -webkit-backdrop-filter: var(--glass-blur);
+            transform: translateY(-100%);
+            transition: transform 0.2s;
+            z-index: 50;
+            border-bottom: 1px solid var(--btn-border);
+            box-shadow: var(--glass-inset);
+        }
+        #pullIndicator.show { transform: translateY(0); }
+        #pullIndicator .spinner { width: 20px; height: 20px; margin-right: 8px; }
+
+        .back-link { color: var(--accent); cursor: pointer; font-size: 15px; font-weight: 500; }
         .back-link:active { opacity: 0.7; }
+        .hidden { display: none !important; }
+        .footer { text-align: center; font-size: 12px; color: var(--text-muted); margin-top: 20px; }
+        .spinner {
+            display: inline-block;
+            width: 18px;
+            height: 18px;
+            border: 2px solid var(--btn-border);
+            border-top-color: var(--accent);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            vertical-align: middle;
+            margin-right: 6px;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
 
         @media (max-width: 420px) {
-            .theme-grid { grid-template-columns: repeat(4, 1fr); }
+            .menu-grid-cards { gap: 8px; }
+            .menu-card { padding: 14px 6px 10px; }
+            .menu-card .icon-svg { width: 28px; height: 28px; }
+            .bottom-nav .tab { padding: 4px 10px; }
+            .bottom-nav .tab .tab-icon { width: 22px; height: 22px; }
         }
     </style>
 </head>
 <body>
 
-    <!-- ===== ШАПКА ===== -->
-    <div class="header" id="appHeader">
-        <div class="header-title" id="headerTitle">🌊 Terch VPN</div>
-        <div class="header-actions">
-            <button class="header-btn" id="settingsBtn" title="Настройки">⚙️</button>
-            <button class="header-btn" id="themeToggleBtn" title="Темы">🎨</button>
+    <!-- ===== SPLASH С АНИМИРОВАННОЙ ВОЛНОЙ ===== -->
+    <div id="splash">
+        <div class="wave-container">
+            <svg class="wave-svg wave1" viewBox="0 0 200 80" preserveAspectRatio="none">
+                <path d="M0 40 Q 25 10, 50 40 T 100 40 T 150 40 T 200 40" />
+            </svg>
+            <svg class="wave-svg wave2" viewBox="0 0 200 80" preserveAspectRatio="none">
+                <path d="M0 50 Q 25 20, 50 50 T 100 50 T 150 50 T 200 50" />
+            </svg>
         </div>
+        <div class="title">Terch VPN</div>
     </div>
 
-    <!-- ===== СТРАНИЦА 1: ГЛАВНАЯ ===== -->
-    <div class="page active" id="page-main">
-        <div class="card">
+    <!-- ===== PULL-TO-REFRESH ===== -->
+    <div id="pullIndicator"><span class="spinner"></span> Обновление...</div>
+
+    <!-- ===== ШАПКА ===== -->
+    <div class="header">
+        <div class="header-title">Terch VPN</div>
+    </div>
+
+    <!-- ===== ГЛАВНАЯ ===== -->
+    <div class="page active" id="page-main" role="tabpanel" aria-label="Главная">
+        <div class="card" id="statusCard">
             <div class="label">Ваш Telegram ID</div>
             <div class="value" id="userId">—</div>
             <div style="margin-top:10px;">
                 <span class="label">Статус подписки</span>
-                <div style="margin-top:4px;">
+                <div style="margin-top:4px;display:flex;align-items:center;flex-wrap:wrap;gap:8px;">
                     <span class="status-badge" id="statusBadge">Загрузка…</span>
-                    <span style="margin-left:8px;font-size:14px;color:var(--text-muted);" id="expiryText"></span>
+                    <span style="font-size:14px;color:var(--text-muted);" id="expiryText"></span>
                 </div>
             </div>
         </div>
-        <div class="menu-grid">
-            <div class="menu-btn" id="btnSetup">
-                <span><span class="icon">⚙️</span> Настроить VPN</span>
-                <span class="arrow">→</span>
+
+        <div class="menu-grid-cards">
+            <div class="menu-card" id="btnSetup" role="button" tabindex="0" aria-label="Настроить VPN">
+                <svg class="icon-svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h4M19 12h4M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+                <span class="card-label">Настроить VPN</span>
             </div>
-            <div class="menu-btn" id="btnKeys">
-                <span><span class="icon">🔑</span> Ключ доступа</span>
-                <span class="arrow">→</span>
+            <div class="menu-card" id="btnKeys" role="button" tabindex="0" aria-label="Ключи доступа">
+                <svg class="icon-svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h4M19 12h4M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+                <span class="card-label">Ключи доступа</span>
             </div>
-            <a class="menu-btn" id="btnNews" href="#" target="_blank">
-                <span><span class="icon">📢</span> Новости и акции ↗️</span>
-                <span class="arrow">→</span>
+            <a class="menu-card" id="btnNews" href="#" target="_blank" aria-label="Новости и акции">
+                <svg class="icon-svg" viewBox="0 0 24 24"><path d="M4 4h16v16H4z"/><line x1="8" y1="8" x2="16" y2="8"/><line x1="8" y1="12" x2="14" y2="12"/><line x1="8" y1="16" x2="12" y2="16"/></svg>
+                <span class="card-label">Новости и акции</span>
+            </a>
+            <a class="menu-card" id="btnHelp" href="#" target="_blank" aria-label="Помощь и поддержка">
+                <svg class="icon-svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+                <span class="card-label">Помощь / Поддержка</span>
             </a>
         </div>
+
         <div class="footer">© 2026 Terch VPN · Все права защищены</div>
     </div>
 
-    <!-- ===== СТРАНИЦА 2: НАСТРОЙКА VPN ===== -->
-    <div class="page" id="page-setup">
+    <!-- ===== НАСТРОЙКА VPN ===== -->
+    <div class="page" id="page-setup" role="tabpanel" aria-label="Настройка VPN">
         <div class="card">
             <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;">
-                <span class="back-link" id="setupBack">← Назад</span>
+                <span class="back-link" id="setupBack" role="button" tabindex="0" aria-label="Назад">← Назад</span>
                 <span style="font-size:16px;font-weight:600;">Настройка VPN</span>
             </div>
             <div id="setupContent">
                 <div id="setupStep1">
                     <div class="label" style="margin-bottom:8px;">Шаг 1 — Выберите устройство</div>
-                    <div class="menu-grid">
-                        <div class="menu-btn" id="setupIOS">
-                            <span><span class="icon">🍏</span> iOS (iPhone / iPad)</span>
+                    <div class="menu-grid" style="display:flex;flex-direction:column;gap:10px;">
+                        <div class="menu-btn" id="setupIOS" role="button" tabindex="0" aria-label="iOS">
+                            <span class="btn-content">
+                                <svg class="icon-svg" viewBox="0 0 24 24"><rect x="4" y="2" width="16" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+                                iOS (iPhone / iPad)
+                            </span>
                             <span class="arrow">→</span>
                         </div>
-                        <div class="menu-btn" id="setupAndroid">
-                            <span><span class="icon">🤖</span> Android</span>
+                        <div class="menu-btn" id="setupAndroid" role="button" tabindex="0" aria-label="Android">
+                            <span class="btn-content">
+                                <svg class="icon-svg" viewBox="0 0 24 24"><path d="M4 10h16v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2z"/><path d="M8 4l-2 4M16 4l2 4"/></svg>
+                                Android
+                            </span>
                             <span class="arrow">→</span>
                         </div>
                     </div>
@@ -520,10 +613,13 @@
                     <div id="setupAppLink" style="margin:8px 0;">
                         <a href="#" target="_blank" id="appStoreLink" style="color:var(--accent);font-weight:500;">Скачать Happ</a>
                     </div>
-                    <button class="menu-btn" id="setupInstalled" style="width:100%;justify-content:center;margin-top:8px;">
-                        ✅ Я установил → ключи
+                    <button class="menu-btn" id="setupInstalled" style="width:100%;justify-content:center;margin-top:8px;" role="button" tabindex="0">
+                        <span class="btn-content">
+                            <svg class="icon-svg" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                            Я установил → ключи
+                        </span>
                     </button>
-                    <button class="menu-btn" id="setupBackStep2" style="width:100%;justify-content:center;margin-top:6px;background:transparent;border-color:var(--border);">
+                    <button class="menu-btn" id="setupBackStep2" style="width:100%;justify-content:center;margin-top:6px;background:rgba(255,255,255,0.03);border-color:var(--btn-border);" role="button" tabindex="0">
                         ← Назад
                     </button>
                 </div>
@@ -531,461 +627,716 @@
         </div>
     </div>
 
-    <!-- ===== СТРАНИЦА 3: КЛЮЧИ (двухуровневая) ===== -->
-    <div class="page" id="page-keys">
+    <!-- ===== КЛЮЧИ ===== -->
+    <div class="page" id="page-keys" role="tabpanel" aria-label="Ключи доступа">
         <div class="card">
             <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;">
-                <span class="back-link" id="keysBack">← Назад</span>
+                <span class="back-link" id="keysBack" role="button" tabindex="0" aria-label="Назад">← Назад</span>
                 <span style="font-size:16px;font-weight:600;">Ключи доступа</span>
             </div>
             <div id="keysProviderMenu">
-                <div class="menu-grid">
-                    <div class="menu-btn" id="keysProviderZieng">
-                        <span><span class="icon">👤</span> ОСНОВНОЙ ВАРИАНТ (zieng2)</span>
+                <div class="menu-grid" style="display:flex;flex-direction:column;gap:10px;">
+                    <div class="menu-btn" id="keysProviderZieng" role="button" tabindex="0">
+                        <span class="btn-content">
+                            <svg class="icon-svg" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                            ОСНОВНОЙ ВАРИАНТ (zieng2)
+                        </span>
                         <span class="arrow">→</span>
                     </div>
-                    <div class="menu-btn" id="keysProviderRjs">
-                        <span><span class="icon">👤</span> ЗАПАСНОЙ ВАРИАНТ (rjsxrd)</span>
+                    <div class="menu-btn" id="keysProviderRjs" role="button" tabindex="0">
+                        <span class="btn-content">
+                            <svg class="icon-svg" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                            ЗАПАСНОЙ ВАРИАНТ (rjsxrd)
+                        </span>
                         <span class="arrow">→</span>
                     </div>
                 </div>
             </div>
             <div id="keysContent" class="hidden">
-                <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
-                    <span class="back-link" id="keysContentBack">← Назад к выбору</span>
-                    <span style="font-size:15px;font-weight:600;" id="keysProviderLabel"></span>
-                </div>
                 <div id="keysContentInner"></div>
             </div>
         </div>
     </div>
 
-    <!-- ===== СТРАНИЦА 4: ТЕМЫ ===== -->
-    <div class="page" id="page-themes">
+    <!-- ===== ПРОФИЛЬ ===== -->
+    <div class="page" id="page-profile" role="tabpanel" aria-label="Профиль">
+        <div class="card">
+            <div class="profile-avatar">
+                <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            </div>
+            <div class="profile-name" id="profileName">Пользователь</div>
+            <div class="profile-sub" id="profileSub">Telegram ID: <span id="profileUserId">—</span></div>
+
+            <div class="profile-stats">
+                <div class="stat-box">
+                    <div class="num" id="statDays">—</div>
+                    <div class="lbl">Дней до конца</div>
+                </div>
+                <div class="stat-box">
+                    <div class="num" id="statStatus">—</div>
+                    <div class="lbl">Статус</div>
+                </div>
+            </div>
+
+            <div class="settings-group">
+                <div class="settings-item">
+                    <div class="left">
+                        <svg class="icon-svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h4M19 12h4M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+                        <div>
+                            <div class="label">Тема оформления</div>
+                            <div class="desc">Выберите цветовую схему</div>
+                        </div>
+                    </div>
+                    <button class="theme-selector-btn" id="openThemesBtn" role="button" tabindex="0">Изменить</button>
+                </div>
+                <div class="settings-item">
+                    <div class="left">
+                        <svg class="icon-svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+                        <div>
+                            <div class="label">Язык</div>
+                            <div class="desc">Русский (скоро English)</div>
+                        </div>
+                    </div>
+                    <div style="color:var(--text-muted);font-size:14px;">RU</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== ТЕМЫ ===== -->
+    <div class="page" id="page-themes" role="tabpanel" aria-label="Выбор темы">
         <div class="card">
             <div style="display:flex;align-items:center;gap:8px;margin-bottom:16px;">
-                <span class="back-link" id="themesBack">← Назад</span>
+                <span class="back-link" id="themesBack" role="button" tabindex="0" aria-label="Назад">← Назад</span>
                 <span style="font-size:16px;font-weight:600;">Выбор темы</span>
             </div>
             <div id="themeGroups"></div>
         </div>
     </div>
 
-    <!-- ===== СТРАНИЦА 5: НАСТРОЙКИ ===== -->
-    <div class="page" id="page-settings">
-        <div class="card">
-            <div style="display:flex;align-items:center;gap:8px;margin-bottom:16px;">
-                <span class="back-link" id="settingsBack">← Назад</span>
-                <span style="font-size:16px;font-weight:600;">Настройки</span>
-            </div>
-            <div class="settings-item">
-                <div>
-                    <div class="label">🎵 Фоновая музыка</div>
-                    <div class="desc">Инструментальный джаз</div>
-                </div>
-                <div class="toggle" id="musicToggle">
-                    <div class="knob"></div>
-                </div>
-            </div>
-        </div>
+    <!-- ===== ТОСТ ===== -->
+    <div id="toast" role="status" aria-live="polite"></div>
+
+    <!-- ===== НИЖНЯЯ НАВИГАЦИЯ ===== -->
+    <div class="bottom-nav" id="bottomNav" role="tablist">
+        <button class="tab active" data-page="main" role="tab" aria-selected="true" aria-label="Главная">
+            <svg class="tab-icon" viewBox="0 0 24 24"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-4 0a1 1 0 01-1-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 01-1 1"/></svg>
+            <span>Главная</span>
+        </button>
+        <button class="tab" data-page="profile" role="tab" aria-selected="false" aria-label="Профиль">
+            <svg class="tab-icon" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            <span>Профиль</span>
+        </button>
     </div>
 
-    <!-- ===== АУДИО ===== -->
-    <audio id="bgMusic" loop preload="auto">
-        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3" type="audio/mpeg">
-    </audio>
-
     <script>
-        // ==========================================
-        // ИНИЦИАЛИЗАЦИЯ
-        // ==========================================
-        var tg = window.Telegram.WebApp;
+        // ================================================================
+        //  КОНФИГУРАЦИЯ
+        // ================================================================
+        const CONFIG = {
+            API_BASE: 'https://eldarjzj.val.town/Ter', // ЗАМЕНИТЕ НА СВОЙ URL
+        };
+
+        // ================================================================
+        //  ИНИЦИАЛИЗАЦИЯ Telegram WebApp
+        // ================================================================
+        const tg = window.Telegram.WebApp;
         tg.expand();
         tg.ready();
 
-        var user = tg.initDataUnsafe?.user;
-        var userId = user ? user.id : null;
+        const user = tg.initDataUnsafe?.user;
+        const userId = user ? user.id : null;
 
-        var userIdEl = document.getElementById('userId');
-        var statusBadge = document.getElementById('statusBadge');
-        var expiryText = document.getElementById('expiryText');
-        var root = document.documentElement;
+        // ================================================================
+        //  DOM-ЭЛЕМЕНТЫ
+        // ================================================================
+        const userIdEl = document.getElementById('userId');
+        const statusBadge = document.getElementById('statusBadge');
+        const expiryText = document.getElementById('expiryText');
+        const statusCard = document.getElementById('statusCard');
+        const root = document.documentElement;
+        const toastEl = document.getElementById('toast');
+        const splash = document.getElementById('splash');
 
-        // ==========================================
-        // ЗАГРУЗКА РЕАЛЬНОГО СТАТУСА
-        // ==========================================
-        function loadUserStatus() {
-            if (!userId) {
-                userIdEl.textContent = 'Не определен (откройте через бота)';
-                statusBadge.textContent = '❌ Ошибка';
+        const profileUserId = document.getElementById('profileUserId');
+        const statDays = document.getElementById('statDays');
+        const statStatus = document.getElementById('statStatus');
+
+        // ================================================================
+        //  УТИЛИТЫ
+        // ================================================================
+
+        function showToast(text) {
+            toastEl.textContent = text;
+            toastEl.classList.add('visible');
+            clearTimeout(toastEl._hideTimer);
+            toastEl._hideTimer = setTimeout(() => {
+                toastEl.classList.remove('visible');
+            }, 2500);
+        }
+
+        function copyToClipboard(text) {
+            if (navigator.clipboard && window.isSecureContext) {
+                navigator.clipboard.writeText(text).then(() => {
+                    showToast('Скопировано!');
+                    if (navigator.vibrate) navigator.vibrate(10);
+                }).catch(() => fallbackCopy(text));
+            } else {
+                fallbackCopy(text);
+            }
+        }
+
+        function fallbackCopy(text) {
+            const textarea = document.createElement('textarea');
+            textarea.value = text;
+            textarea.style.position = 'fixed';
+            textarea.style.left = '-9999px';
+            document.body.appendChild(textarea);
+            textarea.select();
+            try {
+                document.execCommand('copy');
+                showToast('Скопировано!');
+                if (navigator.vibrate) navigator.vibrate(10);
+            } catch (e) {
+                showToast('Ошибка копирования');
+            }
+            document.body.removeChild(textarea);
+        }
+
+        // ================================================================
+        //  SPLASH
+        // ================================================================
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                splash.classList.add('hidden');
+                setTimeout(() => splash.style.display = 'none', 800);
+            }, 1500);
+        });
+
+        // ================================================================
+        //  СИСТЕМНАЯ ТЕМА
+        // ================================================================
+        const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark-blue' : 'light-gray';
+        let savedTheme = localStorage.getItem('terch-theme');
+        if (!savedTheme) {
+            savedTheme = systemTheme;
+            localStorage.setItem('terch-theme', savedTheme);
+        }
+        let currentTheme = savedTheme;
+        function setTheme(theme) {
+            root.setAttribute('data-theme', theme);
+            localStorage.setItem('terch-theme', theme);
+            currentTheme = theme;
+        }
+        setTheme(currentTheme);
+
+        // ================================================================
+        //  КЭШИРОВАНИЕ СТАТУСА
+        // ================================================================
+        const CACHE_KEY = 'terch-status-cache';
+
+        function getCachedStatus() {
+            try {
+                const raw = localStorage.getItem(CACHE_KEY);
+                return raw ? JSON.parse(raw) : null;
+            } catch { return null; }
+        }
+
+        function setCachedStatus(data) {
+            try {
+                localStorage.setItem(CACHE_KEY, JSON.stringify(data));
+            } catch {}
+        }
+
+        // ================================================================
+        //  ЗАГРУЗКА СТАТУСА
+        // ================================================================
+
+        function showSkeleton() {
+            statusCard.innerHTML = `
+                <div class="label">Ваш Telegram ID</div>
+                <div class="skeleton" style="width:40%;height:24px;margin-top:2px;"></div>
+                <div style="margin-top:10px;">
+                    <span class="label">Статус подписки</span>
+                    <div style="margin-top:4px;display:flex;align-items:center;flex-wrap:wrap;gap:8px;">
+                        <span class="skeleton skeleton-badge"></span>
+                        <span class="skeleton" style="width:120px;height:14px;"></span>
+                    </div>
+                </div>
+            `;
+        }
+
+        function updateStatusUI(data) {
+            if (!data) {
+                userIdEl.textContent = 'Не определен';
+                statusBadge.textContent = 'Ошибка';
                 statusBadge.className = 'status-badge expired';
-                expiryText.textContent = 'Нет ID пользователя';
+                expiryText.textContent = 'Нет ID';
+                profileUserId.textContent = '—';
+                statDays.textContent = '—';
+                statStatus.textContent = '—';
                 return;
             }
 
-            // Определяем базовый URL API (тот же хост, что у веб-версии)
-            var apiUrl = window.location.origin + '/api/user?id=' + userId;
-            // Если веб-версия открыта на GitHub Pages, а API на val.town, то нужно указать полный URL
-            // Например, если val.town хост: https://eldarjzj.val.town/Ter
-            // Но мы используем относительный путь, так как API и веб-версия на одном домене (если настроено)
-            // Если нет, замени на полный URL твоего валтауна.
-            // Пример: var apiUrl = 'https://eldarjzj.val.town/Ter/api/user?id=' + userId;
-            // Но чтобы работало везде, лучше указать полный URL:
-            var apiBase = 'https://eldarjzj.val.town/Ter'; // ЗАМЕНИ НА СВОЙ ВАЛТАУН URL
-            apiUrl = apiBase + '/api/user?id=' + userId;
+            userIdEl.textContent = data.id || '—';
+            profileUserId.textContent = data.id || '—';
+
+            const expDate = new Date(data.exp);
+            const now = new Date();
+            const isExpired = (data.premiumStatus === 'vip10' || data.premiumStatus === 'premium5') ? false : (expDate <= now);
+
+            let daysLeft = '∞';
+            let statusText = 'Активна';
+            let badgeClass = 'active';
+            if (isExpired) {
+                statusText = 'Истекла';
+                badgeClass = 'expired';
+                daysLeft = '0';
+            } else {
+                if (data.premiumStatus === 'vip10' || data.premiumStatus === 'premium5') {
+                    daysLeft = '∞';
+                } else {
+                    daysLeft = Math.ceil((expDate - now) / (1000 * 60 * 60 * 24));
+                }
+            }
+
+            statusBadge.textContent = isExpired ? 'Истекла' : 'Активна';
+            statusBadge.className = 'status-badge ' + badgeClass;
+            expiryText.textContent = isExpired ? 'Подписка истекла' :
+                (data.premiumStatus === 'vip10' || data.premiumStatus === 'premium5' ?
+                    'Бессрочная' :
+                    'Осталось ~' + daysLeft + ' дн. (до ' + expDate.toLocaleDateString('ru-RU') + ')');
+
+            statDays.textContent = daysLeft;
+            statStatus.textContent = statusText;
+        }
+
+        function loadUserStatus(force = false) {
+            if (!force) {
+                const cached = getCachedStatus();
+                if (cached) {
+                    updateStatusUI(cached);
+                } else {
+                    showSkeleton();
+                }
+            } else {
+                showSkeleton();
+            }
+
+            if (!userId) {
+                userIdEl.textContent = 'Не определен';
+                statusBadge.textContent = 'Ошибка';
+                statusBadge.className = 'status-badge expired';
+                expiryText.textContent = 'Нет ID';
+                profileUserId.textContent = '—';
+                statDays.textContent = '—';
+                statStatus.textContent = '—';
+                return;
+            }
+
+            const apiUrl = CONFIG.API_BASE + '/api/user?id=' + userId;
+
+            let loadingTimeout = setTimeout(() => {
+                if (statusBadge) {
+                    statusBadge.innerHTML = '<span class="spinner"></span> Загрузка…';
+                    statusBadge.className = 'status-badge';
+                }
+            }, 200);
 
             fetch(apiUrl)
-                .then(function(response) {
-                    if (!response.ok) {
-                        throw new Error('Ошибка API: ' + response.status);
-                    }
+                .then(response => {
+                    clearTimeout(loadingTimeout);
+                    if (!response.ok) throw new Error('Ошибка API: ' + response.status);
                     return response.json();
                 })
-                .then(function(data) {
-                    // Обновляем статус
-                    userIdEl.textContent = data.id;
-
-                    var expDate = new Date(data.exp);
-                    var now = new Date();
-                    var isExpired = data.premiumStatus === 'vip10' || data.premiumStatus === 'premium5' ? false : expDate <= now;
-
-                    if (isExpired) {
-                        statusBadge.textContent = '🔴 Истекла';
-                        statusBadge.className = 'status-badge expired';
-                        expiryText.textContent = 'Подписка истекла';
-                    } else {
-                        statusBadge.textContent = '🟢 Активна';
-                        statusBadge.className = 'status-badge active';
-                        var daysLeft = Math.ceil((expDate - now) / (1000 * 60 * 60 * 24));
-                        if (data.premiumStatus === 'vip10' || data.premiumStatus === 'premium5') {
-                            expiryText.textContent = 'Бессрочная подписка';
-                        } else {
-                            expiryText.textContent = 'Осталось ~' + daysLeft + ' дней (до ' + expDate.toLocaleDateString('ru-RU') + ')';
-                        }
-                    }
+                .then(data => {
+                    setCachedStatus(data);
+                    updateStatusUI(data);
                 })
-                .catch(function(err) {
+                .catch(err => {
+                    clearTimeout(loadingTimeout);
                     console.error('Ошибка загрузки статуса:', err);
-                    statusBadge.textContent = '⚠️ Ошибка';
-                    statusBadge.className = 'status-badge expired';
-                    expiryText.textContent = 'Не удалось загрузить статус';
+                    const cached = getCachedStatus();
+                    if (cached) {
+                        updateStatusUI(cached);
+                    } else {
+                        statusBadge.textContent = 'Ошибка';
+                        statusBadge.className = 'status-badge expired';
+                        expiryText.textContent = 'Не удалось загрузить';
+                        statDays.textContent = '—';
+                        statStatus.textContent = 'Ошибка';
+                    }
                 });
         }
 
-        // Загружаем статус при старте
-        if (userId) {
-            loadUserStatus();
-        } else {
-            userIdEl.textContent = 'Не определен (откройте через бота)';
-            statusBadge.textContent = '❌ Ошибка';
-            statusBadge.className = 'status-badge expired';
-            expiryText.textContent = 'Нет ID пользователя';
-        }
+        // ================================================================
+        //  ПЕРВИЧНАЯ ЗАГРУЗКА
+        // ================================================================
+        loadUserStatus();
 
-        // ==========================================
-        // УПРАВЛЕНИЕ СТРАНИЦАМИ
-        // ==========================================
-        var pages = {
+        // ================================================================
+        //  PULL-TO-REFRESH
+        // ================================================================
+        let pullStartY = 0;
+        let pullOffset = 0;
+        const pullIndicator = document.getElementById('pullIndicator');
+        const mainPage = document.getElementById('page-main');
+        let isPulling = false;
+        let refreshing = false;
+
+        mainPage.addEventListener('touchstart', (e) => {
+            if (mainPage.scrollTop === 0) {
+                pullStartY = e.touches[0].clientY;
+                isPulling = true;
+            }
+        }, { passive: true });
+
+        mainPage.addEventListener('touchmove', (e) => {
+            if (!isPulling || refreshing) return;
+            const deltaY = e.touches[0].clientY - pullStartY;
+            if (deltaY > 0 && mainPage.scrollTop === 0) {
+                pullOffset = Math.min(deltaY, 80);
+                if (pullOffset > 20) {
+                    pullIndicator.classList.add('show');
+                    pullIndicator.style.transform = 'translateY(' + (pullOffset - 50) + 'px)';
+                }
+                if (pullOffset > 70) {
+                    refreshing = true;
+                    pullIndicator.querySelector('span').textContent = 'Отпустите для обновления';
+                }
+            }
+        }, { passive: true });
+
+        mainPage.addEventListener('touchend', () => {
+            if (refreshing) {
+                pullIndicator.querySelector('span').textContent = 'Обновление...';
+                pullIndicator.style.transform = 'translateY(0)';
+                loadUserStatus(true);
+                setTimeout(() => {
+                    pullIndicator.classList.remove('show');
+                    pullIndicator.style.transform = 'translateY(-100%)';
+                    refreshing = false;
+                    isPulling = false;
+                }, 800);
+            } else {
+                pullIndicator.classList.remove('show');
+                pullIndicator.style.transform = 'translateY(-100%)';
+                isPulling = false;
+            }
+        }, { passive: true });
+
+        // ================================================================
+        //  УПРАВЛЕНИЕ СТРАНИЦАМИ + СВАЙП
+        // ================================================================
+
+        const pages = {
             main: document.getElementById('page-main'),
             setup: document.getElementById('page-setup'),
             keys: document.getElementById('page-keys'),
+            profile: document.getElementById('page-profile'),
             themes: document.getElementById('page-themes'),
-            settings: document.getElementById('page-settings'),
         };
-        var currentPage = 'main';
-        var previousPage = 'main';
+        let currentPage = 'main';
+        let isTransitioning = false;
 
         function showPage(pageId) {
-            Object.values(pages).forEach(function(p) { p.classList.remove('active'); });
-            var page = pages[pageId];
+            if (isTransitioning) return;
+            isTransitioning = true;
+
+            Object.values(pages).forEach(p => p.classList.remove('active'));
+
+            const page = pages[pageId];
             if (page) {
                 page.classList.add('active');
                 currentPage = pageId;
             }
-            var titles = {
-                main: '🌊 Terch VPN',
-                setup: '⚙️ Настройка',
-                keys: '🔑 Ключи',
-                themes: '🎨 Темы',
-                settings: '⚙️ Настройки'
+
+            const titles = {
+                main: 'Terch VPN',
+                setup: 'Настройка',
+                keys: 'Ключи',
+                profile: 'Профиль',
+                themes: 'Темы'
             };
-            document.getElementById('headerTitle').textContent = titles[pageId] || 'Terch VPN';
-            document.getElementById('settingsBtn').style.display = (pageId === 'settings') ? 'none' : 'flex';
-            document.getElementById('themeToggleBtn').style.display = (pageId === 'themes') ? 'none' : 'flex';
+            document.querySelector('.header-title').textContent = titles[pageId] || 'Terch VPN';
+
+            document.querySelectorAll('.bottom-nav .tab').forEach(tab => {
+                tab.classList.toggle('active', tab.dataset.page === pageId);
+                tab.setAttribute('aria-selected', tab.dataset.page === pageId);
+            });
+
             if (pageId !== 'keys') {
                 resetKeysView();
             }
+
+            setTimeout(() => {
+                isTransitioning = false;
+            }, 350);
         }
 
         function navigateTo(pageId) {
-            if (pageId === currentPage) return;
-            previousPage = currentPage;
+            if (pageId === currentPage || isTransitioning) return;
             showPage(pageId);
         }
 
-        // ==========================================
-        // ГЛАВНОЕ МЕНЮ
-        // ==========================================
-        document.getElementById('btnSetup').addEventListener('click', function() {
+        document.querySelectorAll('.bottom-nav .tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                navigateTo(tab.dataset.page);
+            });
+        });
+
+        // ===== СВАЙП =====
+        let touchStartX = 0;
+        let touchStartY = 0;
+        let isSwiping = false;
+
+        document.addEventListener('touchstart', (e) => {
+            touchStartX = e.touches[0].clientX;
+            touchStartY = e.touches[0].clientY;
+            isSwiping = true;
+        }, { passive: true });
+
+        document.addEventListener('touchmove', (e) => {
+            if (!isSwiping) return;
+            const deltaX = e.touches[0].clientX - touchStartX;
+            const deltaY = e.touches[0].clientY - touchStartY;
+            if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > 30) {
+                e.preventDefault();
+                if (deltaX < 0 && currentPage === 'main') {
+                    navigateTo('profile');
+                } else if (deltaX > 0 && currentPage === 'profile') {
+                    navigateTo('main');
+                }
+                isSwiping = false;
+            }
+        }, { passive: false });
+
+        document.addEventListener('touchend', () => {
+            isSwiping = false;
+        }, { passive: true });
+
+        // ================================================================
+        //  ГЛАВНОЕ МЕНЮ
+        // ================================================================
+
+        document.getElementById('btnSetup').addEventListener('click', () => {
             navigateTo('setup');
             resetSetup();
         });
-        document.getElementById('btnKeys').addEventListener('click', function() {
-            navigateTo('keys');
-        });
+        document.getElementById('btnKeys').addEventListener('click', () => navigateTo('keys'));
         document.getElementById('btnNews').href = 'https://t.me/TerchVPNnews';
+        document.getElementById('btnHelp').href = 'https://t.me/TerchVPN_support';
 
-        // ==========================================
-        // НАСТРОЙКА VPN
-        // ==========================================
-        var setupStep1 = document.getElementById('setupStep1');
-        var setupStep2 = document.getElementById('setupStep2');
-        var appStoreLink = document.getElementById('appStoreLink');
+        // ================================================================
+        //  НАСТРОЙКА VPN
+        // ================================================================
+
+        const setupStep1 = document.getElementById('setupStep1');
+        const setupStep2 = document.getElementById('setupStep2');
+        const appStoreLink = document.getElementById('appStoreLink');
 
         function resetSetup() {
             setupStep1.classList.remove('hidden');
             setupStep2.classList.add('hidden');
         }
 
-        document.getElementById('setupIOS').addEventListener('click', function() {
+        document.getElementById('setupIOS').addEventListener('click', () => {
             setupStep1.classList.add('hidden');
             setupStep2.classList.remove('hidden');
             appStoreLink.href = 'https://apps.apple.com/ru/app/happ-proxy-utility/id673623643';
             appStoreLink.textContent = 'Happ в App Store';
         });
-        document.getElementById('setupAndroid').addEventListener('click', function() {
+        document.getElementById('setupAndroid').addEventListener('click', () => {
             setupStep1.classList.add('hidden');
             setupStep2.classList.remove('hidden');
             appStoreLink.href = 'https://play.google.com/store/apps/details?id=app.happ';
             appStoreLink.textContent = 'Happ в Google Play';
         });
-        document.getElementById('setupBackStep2').addEventListener('click', function() {
-            resetSetup();
-        });
-        document.getElementById('setupBack').addEventListener('click', function() {
-            navigateTo('main');
-        });
-        document.getElementById('setupInstalled').addEventListener('click', function() {
-            navigateTo('keys');
-        });
+        document.getElementById('setupBackStep2').addEventListener('click', resetSetup);
+        document.getElementById('setupBack').addEventListener('click', () => navigateTo('main'));
+        document.getElementById('setupInstalled').addEventListener('click', () => navigateTo('keys'));
 
-        // ==========================================
-        // КЛЮЧИ (двухуровневая навигация)
-        // ==========================================
-        var keysProviderMenu = document.getElementById('keysProviderMenu');
-        var keysContent = document.getElementById('keysContent');
-        var keysContentInner = document.getElementById('keysContentInner');
-        var keysProviderLabel = document.getElementById('keysProviderLabel');
+        // ================================================================
+        //  КЛЮЧИ (объединённая кнопка "Назад")
+        // ================================================================
+
+        const keysProviderMenu = document.getElementById('keysProviderMenu');
+        const keysContent = document.getElementById('keysContent');
+        const keysContentInner = document.getElementById('keysContentInner');
+        let lastProvider = localStorage.getItem('terch-last-provider') || null;
 
         function resetKeysView() {
             keysProviderMenu.classList.remove('hidden');
             keysContent.classList.add('hidden');
             keysContentInner.innerHTML = '';
+            document.querySelector('#page-keys .back-link').textContent = '← Назад';
         }
-
-        document.getElementById('keysProviderZieng').addEventListener('click', function() {
-            showKeysProvider('zieng2');
-        });
-        document.getElementById('keysProviderRjs').addEventListener('click', function() {
-            showKeysProvider('rjsxrd');
-        });
 
         function showKeysProvider(provider) {
             keysProviderMenu.classList.add('hidden');
             keysContent.classList.remove('hidden');
             keysContentInner.innerHTML = '';
-            var label = (provider === 'zieng2') ? 'ОСНОВНОЙ (zieng2)' : 'ЗАПАСНОЙ (rjsxrd)';
-            keysProviderLabel.textContent = label;
+            const label = (provider === 'zieng2') ? 'ОСНОВНОЙ (zieng2)' : 'ЗАПАСНОЙ (rjsxrd)';
+            document.querySelector('#page-keys .back-link').textContent = '← Назад к выбору';
+            localStorage.setItem('terch-last-provider', provider);
+            lastProvider = provider;
 
             if (provider === 'zieng2') {
-                var html = '';
-                html += '<div class="key-section">';
-                html += '  <div class="key-section-title">📦 Ключи zieng2</div>';
-                html += '  <div class="key-row">';
-                html += '    <div class="key-btn lite" id="keyLite">LITE</div>';
-                html += '    <div class="key-btn universal" id="keyUniversal">UNIVERSAL</div>';
-                html += '  </div>';
-                html += '  <div id="keyDisplayZieng" style="margin-top:6px;"></div>';
-                html += '</div>';
-                keysContentInner.innerHTML = html;
-
-                document.getElementById('keyLite').addEventListener('click', function() {
-                    if (!userId) return;
-                    var link = 'https://raw.githubusercontent.com/zieng2/wl/main/vless_lite.txt?user=' + userId;
-                    showKey('keyDisplayZieng', '📦 LITE ключ', link);
-                });
-                document.getElementById('keyUniversal').addEventListener('click', function() {
-                    if (!userId) return;
-                    var link = 'https://raw.githubusercontent.com/zieng2/wl/main/vless_universal.txt?user=' + userId;
-                    showKey('keyDisplayZieng', '💎 UNIVERSAL ключ', link);
-                });
+                renderZiengKeys();
             } else {
-                var html = '';
-                html += '<div class="key-section">';
-                html += '  <div class="key-section-title">🌐 Ключи rjsxrd</div>';
-                html += '  <div class="key-row">';
-                html += '    <div class="key-btn bypass" id="keyRjsAll">Все серверы</div>';
-                html += '  </div>';
-                html += '  <div class="key-row">';
-                for (var i = 1; i <= 5; i++) {
-                    html += '    <div class="key-btn bypass" data-num="' + i + '">Обход ' + i + '</div>';
-                }
-                html += '  </div>';
-                html += '  <div id="keyDisplayRjs" style="margin-top:6px;"></div>';
-                html += '</div>';
-                keysContentInner.innerHTML = html;
-
-                document.getElementById('keyRjsAll').addEventListener('click', function() {
-                    if (!userId) return;
-                    var link = 'https://raw.githubusercontent.com/whoahaow/rjsxrd/main/bypass/bypass-all.txt?user=' + userId;
-                    showKey('keyDisplayRjs', '🌐 Все серверы', link);
-                });
-                document.querySelectorAll('#keysContentInner .key-btn.bypass[data-num]').forEach(function(btn) {
-                    btn.addEventListener('click', function() {
-                        if (!userId) return;
-                        var num = this.dataset.num;
-                        var link = 'https://raw.githubusercontent.com/whoahaow/rjsxrd/main/bypass/bypass-' + num + '.txt?user=' + userId;
-                        showKey('keyDisplayRjs', '🧩 Обход ' + num, link);
-                    });
-                });
+                renderRjsKeys();
             }
+        }
+
+        function renderZiengKeys() {
+            const html = `
+                <div class="key-section">
+                    <div class="key-section-title">Ключи zieng2</div>
+                    <div class="key-row">
+                        <div class="key-btn lite" data-key="lite">LITE</div>
+                        <div class="key-btn universal" data-key="universal">UNIVERSAL</div>
+                    </div>
+                    <div id="keyDisplayZieng" style="margin-top:6px;"></div>
+                </div>
+            `;
+            keysContentInner.innerHTML = html;
+
+            // Добавляем обработчики
+            const btns = keysContentInner.querySelectorAll('.key-btn[data-key]');
+            btns.forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    if (!userId) {
+                        showToast('❌ Нет ID пользователя. Откройте приложение через бота.');
+                        return;
+                    }
+                    const type = this.dataset.key; // 'lite' или 'universal'
+                    const link = `https://raw.githubusercontent.com/zieng2/wl/main/vless_${type}.txt?user=${userId}`;
+                    const label = (type === 'lite') ? 'LITE' : 'UNIVERSAL';
+                    showKey('keyDisplayZieng', label + ' ключ', link);
+                });
+            });
+        }
+
+        function renderRjsKeys() {
+            let html = `
+                <div class="key-section">
+                    <div class="key-section-title">Ключи rjsxrd</div>
+                    <div class="key-row">
+                        <div class="key-btn bypass" data-key="all">Все серверы</div>
+                    </div>
+                    <div class="key-row">
+            `;
+            for (let i = 1; i <= 5; i++) {
+                html += `<div class="key-btn bypass" data-key="bypass-${i}">Обход ${i}</div>`;
+            }
+            html += `
+                    </div>
+                    <div id="keyDisplayRjs" style="margin-top:6px;"></div>
+                </div>
+            `;
+            keysContentInner.innerHTML = html;
+
+            const btns = keysContentInner.querySelectorAll('.key-btn[data-key]');
+            btns.forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    if (!userId) {
+                        showToast('❌ Нет ID пользователя. Откройте приложение через бота.');
+                        return;
+                    }
+                    const key = this.dataset.key;
+                    let link, label;
+                    if (key === 'all') {
+                        link = `https://raw.githubusercontent.com/whoahaow/rjsxrd/main/bypass/bypass-all.txt?user=${userId}`;
+                        label = 'Все серверы';
+                    } else {
+                        const num = key.split('-')[1];
+                        link = `https://raw.githubusercontent.com/whoahaow/rjsxrd/main/bypass/bypass-${num}.txt?user=${userId}`;
+                        label = `Обход ${num}`;
+                    }
+                    showKey('keyDisplayRjs', label, link);
+                });
+            });
         }
 
         function showKey(containerId, label, link) {
-            var container = document.getElementById(containerId);
-            if (!container) return;
-            var escaped = link.replace(/'/g, "\\'");
-            container.innerHTML =
-                '<div class="key-display-box">' +
-                '<span style="color:var(--text-muted);font-size:13px;">' + label + '</span>' +
-                '<a href="' + link + '" target="_blank" class="key-link">' + link + '</a>' +
-                '<div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:6px;">' +
-                '<button class="copy-btn" onclick="navigator.clipboard.writeText(\'' + escaped + '\')">📋 Копировать</button>' +
-                '<button class="copy-btn" style="background:var(--accent);" onclick="location.href=\'happ://import?url=' + encodeURIComponent(link) + '\'">🚀 Открыть в Happ</button>' +
-                '</div></div>';
+            const container = document.getElementById(containerId);
+            if (!container) {
+                console.warn('Контейнер не найден:', containerId);
+                return;
+            }
+            const escaped = link.replace(/'/g, "\\'");
+            container.innerHTML = `
+                <div class="key-display-box">
+                    <span style="color:var(--text-muted);font-size:13px;">${label}</span>
+                    <a href="${link}" target="_blank" class="key-link">${link}</a>
+                    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:6px;">
+                        <button class="copy-btn" data-copy="${escaped}">Копировать</button>
+                        <button class="copy-btn" style="background:var(--accent);" onclick="location.href='happ://import?url=${encodeURIComponent(link)}'">Открыть в Happ</button>
+                    </div>
+                </div>
+            `;
+            const copyBtn = container.querySelector('[data-copy]');
+            if (copyBtn) {
+                copyBtn.addEventListener('click', function() {
+                    copyToClipboard(this.dataset.copy);
+                });
+            }
         }
 
-        document.getElementById('keysContentBack').addEventListener('click', function() {
-            resetKeysView();
-        });
-        document.getElementById('keysBack').addEventListener('click', function() {
-            navigateTo('main');
+        // Обработчик единой кнопки "Назад"
+        document.getElementById('keysBack').addEventListener('click', () => {
+            if (!keysProviderMenu.classList.contains('hidden')) {
+                navigateTo('main');
+            } else {
+                resetKeysView();
+            }
         });
 
-        // ==========================================
-        // ТЕМЫ
-        // ==========================================
-        var themeGroups = [
-            {
-                name: '🌙 Тёмная',
-                themes: [
-                    { id: 'dark-blue', label: 'Тёмно-синяя', cssClass: 'theme-dark-blue' },
-                    { id: 'dark-purple', label: 'Тёмно-фиолетовая', cssClass: 'theme-dark-purple' },
-                    { id: 'dark-green', label: 'Тёмно-зелёная', cssClass: 'theme-dark-green' },
-                    { id: 'dark-red', label: 'Тёмно-красная', cssClass: 'theme-dark-red' },
-                    { id: 'dark-orange', label: 'Тёмно-оранжевая', cssClass: 'theme-dark-orange' },
-                ]
-            },
-            {
-                name: '☀️ Светлая',
-                themes: [
-                    { id: 'light-gray', label: 'Светло-серая', cssClass: 'theme-light-gray' },
-                    { id: 'light-blue', label: 'Небесно-голубая', cssClass: 'theme-light-blue' },
-                    { id: 'light-pink', label: 'Нежно-розовая', cssClass: 'theme-light-pink' },
-                    { id: 'light-green', label: 'Мятно-зелёная', cssClass: 'theme-light-green' },
-                    { id: 'light-lavender', label: 'Лавандовая', cssClass: 'theme-light-lavender' },
-                ]
+        document.getElementById('keysProviderZieng').addEventListener('click', () => showKeysProvider('zieng2'));
+        document.getElementById('keysProviderRjs').addEventListener('click', () => showKeysProvider('rjsxrd'));
+
+        // Автооткрытие сохранённого провайдера
+        const origShowPage = showPage;
+        showPage = function(pageId) {
+            origShowPage(pageId);
+            if (pageId === 'keys' && lastProvider && !keysProviderMenu.classList.contains('hidden')) {
+                showKeysProvider(lastProvider);
             }
+        };
+        showPage('main');
+
+        // ================================================================
+        //  ТЕМЫ (только 2)
+        // ================================================================
+
+        const themeOptions = [
+            { id: 'dark-blue', label: 'Тёмная', cssClass: 'theme-dark-blue' },
+            { id: 'light-gray', label: 'Светлая', cssClass: 'theme-light-gray' }
         ];
 
-        var savedTheme = localStorage.getItem('terch-theme') || 'dark-blue';
-
         function renderThemes() {
-            var container = document.getElementById('themeGroups');
+            const container = document.getElementById('themeGroups');
             container.innerHTML = '';
-            themeGroups.forEach(function(group) {
-                var groupDiv = document.createElement('div');
-                groupDiv.className = 'theme-group';
-                groupDiv.innerHTML = '<div class="theme-group-title">' + group.name + '</div>';
-                var grid = document.createElement('div');
-                grid.className = 'theme-grid';
-                group.themes.forEach(function(t) {
-                    var option = document.createElement('div');
-                    option.className = 'theme-option ' + (t.id === savedTheme ? 'active' : '') + ' ' + t.cssClass;
-                    option.dataset.theme = t.id;
-                    option.innerHTML =
-                        '<div class="circle"></div>' +
-                        '<span class="name">' + t.label + '</span>';
-                    option.addEventListener('click', function() {
-                        setTheme(t.id);
-                        document.querySelectorAll('.theme-option').forEach(function(el) {
-                            el.classList.toggle('active', el.dataset.theme === t.id);
-                        });
-                        navigateTo(previousPage);
+            const grid = document.createElement('div');
+            grid.className = 'theme-grid';
+            themeOptions.forEach(t => {
+                const option = document.createElement('div');
+                option.className = `theme-option ${t.id === currentTheme ? 'active' : ''} ${t.cssClass}`;
+                option.dataset.theme = t.id;
+                option.innerHTML = `<div class="circle"></div><span class="name">${t.label}</span>`;
+                option.addEventListener('click', () => {
+                    setTheme(t.id);
+                    document.querySelectorAll('.theme-option').forEach(el => {
+                        el.classList.toggle('active', el.dataset.theme === t.id);
                     });
-                    grid.appendChild(option);
+                    navigateTo('profile');
                 });
-                groupDiv.appendChild(grid);
-                container.appendChild(groupDiv);
+                grid.appendChild(option);
             });
+            container.appendChild(grid);
         }
         renderThemes();
 
-        function setTheme(theme) {
-            root.setAttribute('data-theme', theme);
-            localStorage.setItem('terch-theme', theme);
-        }
-        setTheme(savedTheme);
-
-        document.getElementById('themesBack').addEventListener('click', function() {
-            navigateTo(previousPage);
-        });
-        document.getElementById('themeToggleBtn').addEventListener('click', function() {
-            navigateTo('themes');
-        });
-
-        // ==========================================
-        // НАСТРОЙКИ (музыка)
-        // ==========================================
-        var bgMusic = document.getElementById('bgMusic');
-        var musicToggle = document.getElementById('musicToggle');
-        var savedMusic = localStorage.getItem('terch-music') !== 'off';
-
-        function setMusicState(enabled) {
-            if (enabled) {
-                bgMusic.play().catch(function() {});
-                musicToggle.classList.add('active');
-                localStorage.setItem('terch-music', 'on');
-            } else {
-                bgMusic.pause();
-                musicToggle.classList.remove('active');
-                localStorage.setItem('terch-music', 'off');
-            }
-        }
-
-        if (savedMusic) {
-            setMusicState(true);
-        } else {
-            setMusicState(false);
-        }
-
-        musicToggle.addEventListener('click', function() {
-            var isOn = musicToggle.classList.contains('active');
-            setMusicState(!isOn);
-        });
-
-        document.getElementById('settingsBtn').addEventListener('click', function() {
-            navigateTo('settings');
-        });
-        document.getElementById('settingsBack').addEventListener('click', function() {
-            navigateTo(previousPage);
-        });
-
-        // ==========================================
-        // СТАРТ
-        // ==========================================
-        showPage('main');
-        console.log('Terch VPN Web App готов');
-    </script>
-</body>
-</html>
+        document.getElementById('themesBack').addEventListener('click', () => navigateTo('profile
