@@ -6,7 +6,7 @@
     <title>Terch VPN</title>
     <script src="https://telegram.org/js/telegram-web-app.js?56"></script>
     <style>
-        /* ===== ТЕМЫ (только 2) ===== */
+        /* ===== ТЕМЫ (только 2: тёмная и светлая) ===== */
         :root {
             --bg: #0a1628;
             --card-bg: rgba(255, 255, 255, 0.04);
@@ -58,7 +58,6 @@
             --tab-active: #2563eb;
             --skeleton-bg: rgba(0, 0, 0, 0.04);
             --skeleton-shine: rgba(0, 0, 0, 0.06);
-            --glass-blur: blur(24px);
             --glass-inset: inset 0 1px 0 rgba(255,255,255,0.4);
         }
 
@@ -96,7 +95,10 @@
             z-index: 9999;
             transition: opacity 0.8s ease;
         }
-        #splash.hidden { opacity: 0; pointer-events: none; }
+        #splash.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
         .wave-container {
             width: 200px;
             height: 80px;
@@ -134,9 +136,12 @@
             -webkit-text-fill-color: transparent;
             animation: fadeUp 0.8s ease;
         }
-        @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
 
-        /* ===== ОСТАЛЬНЫЕ СТИЛИ (без изменений) ===== */
+        /* ===== ШАПКА ===== */
         .header {
             display: flex;
             justify-content: space-between;
@@ -151,14 +156,22 @@
             background-clip: text;
             -webkit-text-fill-color: transparent;
         }
+
+        /* ===== СТРАНИЦЫ ===== */
         .page {
             display: none;
             opacity: 0;
             transform: translateY(10px);
             transition: opacity 0.3s ease, transform 0.3s ease;
         }
-        .page.active { display: block; opacity: 1; transform: translateY(0); }
-        .page.active .card { animation: cardFadeIn 0.4s ease both; }
+        .page.active {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .page.active .card {
+            animation: cardFadeIn 0.4s ease both;
+        }
         .page.active .menu-grid-cards .menu-card:nth-child(1) { animation-delay: 0.05s; }
         .page.active .menu-grid-cards .menu-card:nth-child(2) { animation-delay: 0.1s; }
         .page.active .menu-grid-cards .menu-card:nth-child(3) { animation-delay: 0.15s; }
@@ -168,6 +181,7 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
+        /* ===== СТЕКЛЯННЫЕ КАРТОЧКИ ===== */
         .card {
             background: var(--card-bg);
             backdrop-filter: var(--glass-blur);
@@ -183,6 +197,7 @@
         .card .label { font-size: 12px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; }
         .card .value { font-size: 18px; font-weight: 600; color: var(--text); margin-top: 2px; }
 
+        /* ===== СКЕЛЕТОН ===== */
         .skeleton {
             background: var(--skeleton-bg);
             border-radius: 8px;
@@ -208,6 +223,7 @@
         .skeleton-text { height: 14px; margin: 4px 0; }
         .skeleton-badge { width: 80px; height: 28px; border-radius: 30px; }
 
+        /* ===== СТАТУС ===== */
         .status-badge {
             display: inline-block;
             padding: 4px 14px;
@@ -222,6 +238,7 @@
         .status-badge.active { background: var(--badge-active); color: var(--badge-active-text); border-color: var(--badge-active-border); }
         .status-badge.expired { background: var(--badge-expired); color: var(--badge-expired-text); border-color: var(--badge-expired-border); }
 
+        /* ===== МЕНЮ-СЕТКА ===== */
         .menu-grid-cards {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -253,6 +270,7 @@
         .menu-card .icon-svg { width: 34px; height: 34px; stroke: currentColor; stroke-width: 1.5; fill: none; opacity: 0.8; }
         .menu-card .card-label { font-size: 13px; opacity: 0.9; }
 
+        /* ===== СТЕКЛЯННЫЕ КНОПКИ ===== */
         .menu-btn {
             display: flex;
             align-items: center;
@@ -277,6 +295,7 @@
         .menu-btn .arrow { color: var(--text-muted); font-size: 14px; }
         .menu-btn .btn-content { display: flex; align-items: center; }
 
+        /* ===== КЛЮЧИ ===== */
         .key-section { margin-bottom: 16px; }
         .key-section-title { font-size: 16px; font-weight: 600; margin-bottom: 8px; color: var(--accent); }
         .key-row { display: flex; flex-wrap: wrap; gap: 8px; margin: 6px 0; }
@@ -328,6 +347,7 @@
             box-shadow: var(--glass-inset);
         }
 
+        /* ===== ПРОФИЛЬ ===== */
         .profile-avatar {
             width: 80px;
             height: 80px;
@@ -363,6 +383,7 @@
         .stat-box .num { font-size: 22px; font-weight: 700; color: var(--accent); }
         .stat-box .lbl { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
 
+        /* ===== НАСТРОЙКИ ===== */
         .settings-group { margin-top: 12px; }
         .settings-item {
             display: flex;
@@ -377,6 +398,7 @@
         .settings-item .icon-svg { width: 22px; height: 22px; stroke: currentColor; stroke-width: 1.5; fill: none; margin-right: 10px; opacity: 0.7; flex-shrink: 0; }
         .settings-item .left { display: flex; align-items: center; }
 
+        /* ===== ВЫБОР ТЕМ (только 2) ===== */
         .theme-selector-btn {
             background: var(--btn-bg);
             backdrop-filter: var(--glass-blur);
@@ -412,6 +434,7 @@
         .theme-light-gray .circle { background: #f1f5f9; border-color: #cbd5e1; }
         .theme-grid { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
 
+        /* ===== НИЖНЯЯ НАВИГАЦИЯ ===== */
         .bottom-nav {
             position: fixed;
             bottom: 0;
@@ -449,6 +472,7 @@
         .bottom-nav .tab.active .tab-icon { transform: scale(1.1); }
         .bottom-nav .tab:active { transform: scale(0.92); }
 
+        /* ===== ТОСТ ===== */
         #toast {
             position: fixed;
             bottom: 100px;
@@ -472,6 +496,7 @@
         }
         #toast.visible { opacity: 1; transform: translateX(-50%) translateY(0); }
 
+        /* ===== PULL-TO-REFRESH ===== */
         #pullIndicator {
             position: fixed;
             top: 0;
@@ -495,6 +520,7 @@
         #pullIndicator.show { transform: translateY(0); }
         #pullIndicator .spinner { width: 20px; height: 20px; margin-right: 8px; }
 
+        /* ===== ВСПОМОГАТЕЛЬНЫЕ ===== */
         .back-link { color: var(--accent); cursor: pointer; font-size: 15px; font-weight: 500; }
         .back-link:active { opacity: 0.7; }
         .hidden { display: none !important; }
@@ -523,7 +549,7 @@
 </head>
 <body>
 
-    <!-- ===== SPLASH С АНИМИРОВАННОЙ ВОЛНОЙ ===== -->
+    <!-- ===== SPLASH ===== -->
     <div id="splash">
         <div class="wave-container">
             <svg class="wave-svg wave1" viewBox="0 0 200 80" preserveAspectRatio="none">
@@ -750,17 +776,58 @@
         // ================================================================
         //  DOM-ЭЛЕМЕНТЫ
         // ================================================================
+        const splash = document.getElementById('splash');
         const userIdEl = document.getElementById('userId');
         const statusBadge = document.getElementById('statusBadge');
         const expiryText = document.getElementById('expiryText');
         const statusCard = document.getElementById('statusCard');
         const root = document.documentElement;
         const toastEl = document.getElementById('toast');
-        const splash = document.getElementById('splash');
 
         const profileUserId = document.getElementById('profileUserId');
         const statDays = document.getElementById('statDays');
         const statStatus = document.getElementById('statStatus');
+
+        // ================================================================
+        //  УПРАВЛЕНИЕ SPLASH (минимальное время 9 секунд)
+        // ================================================================
+        let splashStartTime = Date.now();
+        let splashHidden = false;
+        let splashForceTimer = null;
+
+        function hideSplash() {
+            if (splashHidden) return;
+            const elapsed = Date.now() - splashStartTime;
+            const minDisplay = 9000; // 9 секунд
+            if (elapsed >= minDisplay) {
+                splash.classList.add('hidden');
+                setTimeout(() => { splash.style.display = 'none'; }, 800);
+                splashHidden = true;
+                if (splashForceTimer) {
+                    clearTimeout(splashForceTimer);
+                    splashForceTimer = null;
+                }
+            } else {
+                const remaining = minDisplay - elapsed;
+                if (splashForceTimer) clearTimeout(splashForceTimer);
+                splashForceTimer = setTimeout(() => {
+                    splash.classList.add('hidden');
+                    setTimeout(() => { splash.style.display = 'none'; }, 800);
+                    splashHidden = true;
+                    splashForceTimer = null;
+                }, remaining);
+            }
+        }
+
+        // Принудительный таймер на 9 секунд
+        splashForceTimer = setTimeout(() => {
+            if (!splashHidden) {
+                splash.classList.add('hidden');
+                setTimeout(() => { splash.style.display = 'none'; }, 800);
+                splashHidden = true;
+                splashForceTimer = null;
+            }
+        }, 9000);
 
         // ================================================================
         //  УТИЛИТЫ
@@ -802,16 +869,6 @@
             }
             document.body.removeChild(textarea);
         }
-
-        // ================================================================
-        //  SPLASH
-        // ================================================================
-        window.addEventListener('load', () => {
-            setTimeout(() => {
-                splash.classList.add('hidden');
-                setTimeout(() => splash.style.display = 'none', 800);
-            }, 1500);
-        });
 
         // ================================================================
         //  СИСТЕМНАЯ ТЕМА
@@ -912,17 +969,25 @@
         }
 
         function loadUserStatus(force = false) {
+            // Если есть кэш и не force — показываем его и скрываем splash
             if (!force) {
                 const cached = getCachedStatus();
                 if (cached) {
                     updateStatusUI(cached);
+                    hideSplash();
+                    // Фоновое обновление
+                    fetchStatusFromAPI(true);
+                    return;
                 } else {
                     showSkeleton();
                 }
             } else {
                 showSkeleton();
             }
+            fetchStatusFromAPI(force);
+        }
 
+        function fetchStatusFromAPI(force) {
             if (!userId) {
                 userIdEl.textContent = 'Не определен';
                 statusBadge.textContent = 'Ошибка';
@@ -931,6 +996,7 @@
                 profileUserId.textContent = '—';
                 statDays.textContent = '—';
                 statStatus.textContent = '—';
+                hideSplash();
                 return;
             }
 
@@ -952,6 +1018,7 @@
                 .then(data => {
                     setCachedStatus(data);
                     updateStatusUI(data);
+                    hideSplash();
                 })
                 .catch(err => {
                     clearTimeout(loadingTimeout);
@@ -966,13 +1033,14 @@
                         statDays.textContent = '—';
                         statStatus.textContent = 'Ошибка';
                     }
+                    hideSplash();
                 });
         }
 
         // ================================================================
         //  ПЕРВИЧНАЯ ЗАГРУЗКА
         // ================================================================
-        loadUserStatus();
+        loadUserStatus(false);
 
         // ================================================================
         //  PULL-TO-REFRESH
@@ -1200,8 +1268,6 @@
                 </div>
             `;
             keysContentInner.innerHTML = html;
-
-            // Добавляем обработчики
             const btns = keysContentInner.querySelectorAll('.key-btn[data-key]');
             btns.forEach(btn => {
                 btn.addEventListener('click', function(e) {
@@ -1210,7 +1276,7 @@
                         showToast('❌ Нет ID пользователя. Откройте приложение через бота.');
                         return;
                     }
-                    const type = this.dataset.key; // 'lite' или 'universal'
+                    const type = this.dataset.key;
                     const link = `https://raw.githubusercontent.com/zieng2/wl/main/vless_${type}.txt?user=${userId}`;
                     const label = (type === 'lite') ? 'LITE' : 'UNIVERSAL';
                     showKey('keyDisplayZieng', label + ' ключ', link);
@@ -1236,7 +1302,6 @@
                 </div>
             `;
             keysContentInner.innerHTML = html;
-
             const btns = keysContentInner.querySelectorAll('.key-btn[data-key]');
             btns.forEach(btn => {
                 btn.addEventListener('click', function(e) {
@@ -1262,10 +1327,7 @@
 
         function showKey(containerId, label, link) {
             const container = document.getElementById(containerId);
-            if (!container) {
-                console.warn('Контейнер не найден:', containerId);
-                return;
-            }
+            if (!container) return;
             const escaped = link.replace(/'/g, "\\'");
             container.innerHTML = `
                 <div class="key-display-box">
@@ -1285,7 +1347,6 @@
             }
         }
 
-        // Обработчик единой кнопки "Назад"
         document.getElementById('keysBack').addEventListener('click', () => {
             if (!keysProviderMenu.classList.contains('hidden')) {
                 navigateTo('main');
@@ -1339,4 +1400,10 @@
         }
         renderThemes();
 
-        document.getElementById('themesBack').addEventListener('click', () => navigateTo('profile
+        document.getElementById('themesBack').addEventListener('click', () => navigateTo('profile'));
+        document.getElementById('openThemesBtn').addEventListener('click', () => navigateTo('themes'));
+
+        console.log('Terch VPN — финальная версия: анимированная волна, 9 сек splash, стекло, 2 темы');
+    </script>
+</body>
+</html>
