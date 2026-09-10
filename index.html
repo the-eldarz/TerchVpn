@@ -750,6 +750,9 @@
         // ================================================================
         const CONFIG = {
             API_BASE: 'https://eldarjzj.val.town/Ter', // ЗАМЕНИТЕ НА СВОЙ URL
+            // Демо-ID используется ТОЛЬКО если приложение открыто не в Telegram.
+            // В реальном боте эта константа не сработает.
+            DEMO_USER_ID: 123456789,
         };
 
         // ================================================================
@@ -764,8 +767,18 @@
             navigator.vibrate(20);
         }
 
-        const user = tg.initDataUnsafe?.user;
-        const userId = user ? user.id : null;
+        const tgUser = tg.initDataUnsafe?.user;
+        let userId = tgUser ? tgUser.id : null;
+        let isDemoMode = false;
+
+        // Демо-режим активируется ТОЛЬКО если нет userId (т.е. не в Telegram)
+        if (!userId && CONFIG.DEMO_USER_ID) {
+            userId = CONFIG.DEMO_USER_ID;
+            isDemoMode = true;
+            console.log('🧪 Демо-режим (не в Telegram). Используем ID:', userId);
+        } else if (userId) {
+            console.log('✅ Реальный Telegram ID:', userId);
+        }
 
         // ================================================================
         //  DOM-ЭЛЕМЕНТЫ
@@ -825,7 +838,6 @@
         // ================================================================
         //  УТИЛИТЫ
         // ================================================================
-
         function showToast(text) {
             toastEl.textContent = text;
             toastEl.classList.add('visible');
@@ -901,7 +913,6 @@
         // ================================================================
         //  ЗАГРУЗКА СТАТУСА
         // ================================================================
-
         function showSkeleton() {
             statusCard.innerHTML = `
                 <div class="label">Ваш Telegram ID</div>
@@ -916,45 +927,68 @@
             `;
         }
 
+        function restoreStatusCard() {
+            statusCard.innerHTML = `
+                <div class="label">Ваш Telegram ID</div>
+                <div class="value" id="userId">—</div>
+                <div style="margin-top:10px;">
+                    <span class="label">Статус подписки</span>
+                    <div style="margin-top:4px;display:flex;align-items:center;flex-wrap:wrap;gap:8px;">
+                        <span class="status-badge" id="statusBadge">Загрузка…</span>
+                        <span style="font-size:14px;color:var(--text-muted);" id="expiryText"></span>
+                    </div>
+                </div>
+            `;
+            return {
+                userIdEl: document.getElementById('userId'),
+                statusBadge: document.getElementById('statusBadge'),
+                expiryText: document.getElementById('expiryText'),
+            };
+        }
+
         function updateStatusUI(data) {
+            let els = { userIdEl, statusBadge, expiryText };
+            if (!document.getElementById('userId')) {
+                els = restoreStatusCard();
+            }
+
             if (!data) {
-                userIdEl.textContent = 'Не определен';
-                statusBadge.textContent = 'Ошибка';
-                statusBadge.className = 'status-badge expired';
-                expiryText.textContent = 'Нет ID';
+                els.userIdEl.textContent = 'Не определен';
+                els.statusBadge.textContent = 'Ошибка';
+                els.statusBadge.className = 'status-badge expired';
+                els.expiryText.textContent = 'Нет ID';
                 profileUserId.textContent = '—';
                 statDays.textContent = '—';
                 statStatus.textContent = '—';
                 return;
             }
 
-            userIdEl.textContent = data.id || '—';
+            els.userIdEl.textContent = data.id || '—';
             profileUserId.textContent = data.id || '—';
 
             const expDate = new Date(data.exp);
             const now = new Date();
-            const isExpired = (data.premiumStatus === 'vip10' || data.premiumStatus === 'premium5') ? false : (expDate <= now);
+            const isVip = (data.premiumStatus === 'vip10' || data.premiumStatus === 'premium5');
+            const isExpired = isVip ? false : (expDate <= now);
 
             let daysLeft = '∞';
             let statusText = 'Активна';
             let badgeClass = 'active';
+
             if (isExpired) {
                 statusText = 'Истекла';
                 badgeClass = 'expired';
                 daysLeft = '0';
+            } else if (isVip) {
+                daysLeft = '∞';
             } else {
-                if (data.premiumStatus === 'vip10' || data.premiumStatus === 'premium5') {
-                    daysLeft = '∞';
-                } else {
-                    daysLeft = Math.ceil((expDate - now) / (1000 * 60 * 60 * 24));
-                }
+                daysLeft = Math.ceil((expDate - now) / (1000 * 60 * 60 * 24));
             }
 
-            statusBadge.textContent = isExpired ? 'Истекла' : 'Активна';
-            statusBadge.className = 'status-badge ' + badgeClass;
-            expiryText.textContent = isExpired ? 'Подписка истекла' :
-                (data.premiumStatus === 'vip10' || data.premiumStatus === 'premium5' ?
-                    'Бессрочная' :
+            els.statusBadge.textContent = isExpired ? 'Истекла' : 'Активна';
+            els.statusBadge.className = 'status-badge ' + badgeClass;
+            els.expiryText.textContent = isExpired ? 'Подписка истекла' :
+                (isVip ? 'Бессрочная' :
                     'Осталось ~' + daysLeft + ' дн. (до ' + expDate.toLocaleDateString('ru-RU') + ')');
 
             statDays.textContent = daysLeft;
@@ -980,10 +1014,11 @@
 
         function fetchStatusFromAPI(force) {
             if (!userId) {
-                userIdEl.textContent = 'Не определен';
-                statusBadge.textContent = 'Ошибка';
-                statusBadge.className = 'status-badge expired';
-                expiryText.textContent = 'Нет ID';
+                const els = restoreStatusCard();
+                els.userIdEl.textContent = 'Не определен';
+                els.statusBadge.textContent = 'Откройте в Telegram';
+                els.statusBadge.className = 'status-badge expired';
+                els.expiryText.textContent = 'Не в Telegram';
                 profileUserId.textContent = '—';
                 statDays.textContent = '—';
                 statStatus.textContent = '—';
@@ -992,35 +1027,54 @@
             }
 
             const apiUrl = CONFIG.API_BASE + '/api/user?id=' + userId;
+            console.log('📡 Запрос статуса:', apiUrl, isDemoMode ? '(демо)' : '');
 
             let loadingTimeout = setTimeout(() => {
-                if (statusBadge) {
-                    statusBadge.innerHTML = '<span class="spinner"></span> Загрузка…';
-                    statusBadge.className = 'status-badge';
+                const badge = document.getElementById('statusBadge');
+                if (badge) {
+                    badge.innerHTML = '<span class="spinner"></span> Загрузка…';
+                    badge.className = 'status-badge';
                 }
             }, 200);
 
             fetch(apiUrl)
                 .then(response => {
                     clearTimeout(loadingTimeout);
-                    if (!response.ok) throw new Error('Ошибка API: ' + response.status);
+                    if (!response.ok) throw new Error('HTTP ' + response.status);
                     return response.json();
                 })
                 .then(data => {
+                    console.log('✅ Ответ API:', data);
                     setCachedStatus(data);
                     updateStatusUI(data);
                     hideSplash();
                 })
                 .catch(err => {
                     clearTimeout(loadingTimeout);
-                    console.error('Ошибка загрузки статуса:', err);
+                    console.error('❌ Ошибка загрузки статуса:', err);
+
+                    // Если демо-режим и API недоступен — показываем демо-данные
+                    if (isDemoMode) {
+                        const demoData = {
+                            id: userId,
+                            exp: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString(),
+                            premiumStatus: 'basic'
+                        };
+                        console.log('🧪 Показываем демо-данные (API недоступен)');
+                        updateStatusUI(demoData);
+                        hideSplash();
+                        return;
+                    }
+
                     const cached = getCachedStatus();
                     if (cached) {
                         updateStatusUI(cached);
                     } else {
-                        statusBadge.textContent = 'Ошибка';
-                        statusBadge.className = 'status-badge expired';
-                        expiryText.textContent = 'Не удалось загрузить';
+                        const els = restoreStatusCard();
+                        els.userIdEl.textContent = userId || '—';
+                        els.statusBadge.textContent = 'Ошибка';
+                        els.statusBadge.className = 'status-badge expired';
+                        els.expiryText.textContent = 'Не удалось загрузить';
                         statDays.textContent = '—';
                         statStatus.textContent = 'Ошибка';
                     }
@@ -1087,7 +1141,6 @@
         // ================================================================
         //  УПРАВЛЕНИЕ СТРАНИЦАМИ + СВАЙП
         // ================================================================
-
         const pages = {
             main: document.getElementById('page-main'),
             setup: document.getElementById('page-setup'),
@@ -1103,7 +1156,6 @@
             isTransitioning = true;
 
             Object.values(pages).forEach(p => p.classList.remove('active'));
-
             const page = pages[pageId];
             if (page) {
                 page.classList.add('active');
@@ -1177,7 +1229,6 @@
         // ================================================================
         //  ГЛАВНОЕ МЕНЮ
         // ================================================================
-
         document.getElementById('btnSetup').addEventListener('click', () => {
             navigateTo('setup');
             resetSetup();
@@ -1188,7 +1239,6 @@
         // ================================================================
         //  НАСТРОЙКА VPN
         // ================================================================
-
         const setupStep1 = document.getElementById('setupStep1');
         const setupStep2 = document.getElementById('setupStep2');
         const appStoreLink = document.getElementById('appStoreLink');
@@ -1216,10 +1266,7 @@
 
         // ================================================================
         //  КЛЮЧИ
-        //  - ОСНОВНОЙ ВАРИАНТ: igareck (BLACK / WHITE)
-        //  - Запасной вариант (архив): rjsxrd, zieng2, igareck
         // ================================================================
-
         const keysProviderMenu = document.getElementById('keysProviderMenu');
         const keysContent = document.getElementById('keysContent');
         const keysContentInner = document.getElementById('keysContentInner');
@@ -1237,7 +1284,6 @@
             igareckOrigin = 'main';
         }
 
-        // ---------- ОСНОВНОЙ ВАРИАНТ: только igareck ----------
         function showMainProvider() {
             igareckOrigin = 'main';
             keysProviderMenu.classList.add('hidden');
@@ -1245,7 +1291,6 @@
             showIgareckSubMenu('main');
         }
 
-        // ---------- ЗАПАСНОЙ ВАРИАНТ (архив): rjsxrd, zieng2, igareck ----------
         function showBackupProvider() {
             keysProviderMenu.classList.add('hidden');
             keysContent.classList.remove('hidden');
@@ -1285,7 +1330,6 @@
             });
         }
 
-        // ---------- ПОДМЕНЮ IGARECK: BLACK / WHITE ----------
         function showIgareckSubMenu(origin) {
             if (origin) igareckOrigin = origin;
             keysContentInner.innerHTML = `
@@ -1313,7 +1357,6 @@
             document.getElementById('igareckSubWhite').addEventListener('click', () => renderIgareckCategory('white'));
         }
 
-        // ---------- КАТЕГОРИЯ IGARECK (BLACK / WHITE) ----------
         function renderIgareckCategory(category) {
             const files = category === 'black' ? [
                 { label: 'BLACK_SS+All_RUS', link: 'https://raw.githubusercontent.com/igareck/vpn-configs-for-russia/main/BLACK_SS%2BAll_RUS.txt' },
@@ -1359,7 +1402,6 @@
             });
         }
 
-        // ---------- RJSXRD ----------
         function renderRjsKeys() {
             let html = `
                 <div class="key-section">
@@ -1404,7 +1446,6 @@
             });
         }
 
-        // ---------- ZIENG2 ----------
         function renderZiengKeys() {
             const html = `
                 <div class="key-section">
@@ -1436,7 +1477,6 @@
             });
         }
 
-        // ---------- Общая функция отображения ключа ----------
         function showKey(containerId, label, link) {
             const container = document.getElementById(containerId);
             if (!container) return;
@@ -1459,11 +1499,9 @@
             }
         }
 
-        // ---------- Обработчики кнопок выбора ----------
         document.getElementById('keysProviderMain').addEventListener('click', showMainProvider);
         document.getElementById('keysProviderBackup').addEventListener('click', showBackupProvider);
 
-        // ---------- Кнопка "Назад" ----------
         keysBackBtn.addEventListener('click', () => {
             switch (currentProviderLevel) {
                 case 'main':
@@ -1494,9 +1532,8 @@
         });
 
         // ================================================================
-        //  ТЕМЫ (только 2)
+        //  ТЕМЫ
         // ================================================================
-
         const themeOptions = [
             { id: 'dark-blue', label: 'Тёмная', cssClass: 'theme-dark-blue' },
             { id: 'light-gray', label: 'Светлая', cssClass: 'theme-light-gray' }
@@ -1528,7 +1565,7 @@
         document.getElementById('themesBack').addEventListener('click', () => navigateTo('profile'));
         document.getElementById('openThemesBtn').addEventListener('click', () => navigateTo('themes'));
 
-        console.log('Terch VPN — иконка ключа исправлена');
+        console.log('Terch VPN — реальные ID и статус в Telegram, демо-режим только на localhost');
     </script>
 </body>
 </html>
