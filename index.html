@@ -61,9 +61,7 @@
             --glass-inset: inset 0 1px 0 rgba(255,255,255,0.4);
         }
 
-        /* ====================================================
-           ГЛОБАЛЬНЫЕ
-           ==================================================== */
+        /* ===== ГЛОБАЛЬНЫЕ ===== */
         * {
             margin: 0;
             padding: 0;
@@ -83,10 +81,8 @@
         /* ===== SPLASH ===== */
         #splash {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
             background: var(--bg);
             display: flex;
             flex-direction: column;
@@ -104,8 +100,7 @@
         }
         .wave-svg {
             position: absolute;
-            width: 100%;
-            height: 100%;
+            width: 100%; height: 100%;
             fill: none;
             stroke: var(--accent);
             stroke-width: 3;
@@ -164,7 +159,7 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* ===== СТЕКЛЯННЫЕ КАРТОЧКИ ===== */
+        /* ===== КАРТОЧКИ ===== */
         .card {
             background: var(--card-bg);
             backdrop-filter: var(--glass-blur);
@@ -192,10 +187,8 @@
         .skeleton::after {
             content: '';
             position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
+            top: 0; left: -100%;
+            width: 100%; height: 100%;
             background: linear-gradient(90deg, transparent, var(--skeleton-shine), transparent);
             animation: skeletonShine 1.5s infinite;
         }
@@ -333,8 +326,7 @@
 
         /* ===== ПРОФИЛЬ ===== */
         .profile-avatar {
-            width: 80px;
-            height: 80px;
+            width: 80px; height: 80px;
             border-radius: 50%;
             background: var(--accent-grad);
             display: flex;
@@ -421,9 +413,7 @@
         /* ===== НИЖНЯЯ НАВИГАЦИЯ ===== */
         .bottom-nav {
             position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
+            bottom: 0; left: 0; right: 0;
             background: var(--nav-bg);
             backdrop-filter: var(--glass-blur);
             -webkit-backdrop-filter: var(--glass-blur);
@@ -483,9 +473,7 @@
         /* ===== PULL-TO-REFRESH ===== */
         #pullIndicator {
             position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
+            top: 0; left: 0; right: 0;
             height: 50px;
             display: flex;
             align-items: center;
@@ -511,8 +499,7 @@
         .footer { text-align: center; font-size: 12px; color: var(--text-muted); margin-top: 20px; }
         .spinner {
             display: inline-block;
-            width: 18px;
-            height: 18px;
+            width: 18px; height: 18px;
             border: 2px solid var(--btn-border);
             border-top-color: var(--accent);
             border-radius: 50%;
@@ -571,22 +558,36 @@
         <div class="menu-grid-cards">
             <!-- Настроить VPN (шестерёнка) -->
             <div class="menu-card" id="btnSetup" role="button" tabindex="0" aria-label="Настроить VPN">
-                <svg class="icon-svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h4M19 12h4M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+                <svg class="icon-svg" viewBox="0 0 24 24">
+                    <circle cx="12" cy="12" r="3"/>
+                    <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+                </svg>
                 <span class="card-label">Настроить VPN</span>
             </div>
             <!-- Ключи доступа (ключ) -->
             <div class="menu-card" id="btnKeys" role="button" tabindex="0" aria-label="Ключи доступа">
-                <svg class="icon-svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h4M19 12h4M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+                <svg class="icon-svg" viewBox="0 0 24 24">
+                    <path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"/>
+                </svg>
                 <span class="card-label">Ключи доступа</span>
             </div>
             <!-- Новости -->
             <a class="menu-card" id="btnNews" href="#" target="_blank" aria-label="Новости и акции">
-                <svg class="icon-svg" viewBox="0 0 24 24"><path d="M4 4h16v16H4z"/><line x1="8" y1="8" x2="16" y2="8"/><line x1="8" y1="12" x2="14" y2="12"/><line x1="8" y1="16" x2="12" y2="16"/></svg>
+                <svg class="icon-svg" viewBox="0 0 24 24">
+                    <path d="M4 4h16v16H4z"/>
+                    <line x1="8" y1="8" x2="16" y2="8"/>
+                    <line x1="8" y1="12" x2="14" y2="12"/>
+                    <line x1="8" y1="16" x2="12" y2="16"/>
+                </svg>
                 <span class="card-label">Новости и акции</span>
             </a>
-            <!-- Помощь (ссылка на бота) -->
+            <!-- Помощь -->
             <a class="menu-card" id="btnHelp" href="https://t.me/TerchVPN_support" target="_blank" aria-label="Помощь и поддержка">
-                <svg class="icon-svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+                <svg class="icon-svg" viewBox="0 0 24 24">
+                    <circle cx="12" cy="12" r="10"/>
+                    <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/>
+                    <line x1="12" y1="17" x2="12.01" y2="17"/>
+                </svg>
                 <span class="card-label">Помощь / Поддержка</span>
             </a>
         </div>
@@ -641,14 +642,13 @@
         </div>
     </div>
 
-    <!-- ===== КЛЮЧИ (обновлённая структура) ===== -->
+    <!-- ===== КЛЮЧИ ===== -->
     <div class="page" id="page-keys" role="tabpanel" aria-label="Ключи доступа">
         <div class="card">
             <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;">
                 <span class="back-link" id="keysBack" role="button" tabindex="0" aria-label="Назад">← Назад</span>
                 <span style="font-size:16px;font-weight:600;">Ключи доступа</span>
             </div>
-            <!-- ===== МЕНЮ ВЫБОРА ОСНОВНОГО ПРОВАЙДЕРА ===== -->
             <div id="keysProviderMenu">
                 <div class="menu-grid" style="display:flex;flex-direction:column;gap:10px;">
                     <div class="menu-btn" id="keysProviderMain" role="button" tabindex="0">
@@ -661,14 +661,12 @@
                     <div class="menu-btn" id="keysProviderBackup" role="button" tabindex="0">
                         <span class="btn-content">
                             <svg class="icon-svg" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-                            ЗАПАСНОЙ ВАРИАНТ
+                            Запасной вариант
                         </span>
                         <span class="arrow">→</span>
                     </div>
                 </div>
             </div>
-
-            <!-- ===== КОНТЕЙНЕР ДЛЯ ДИНАМИЧЕСКОГО СОДЕРЖИМОГО ===== -->
             <div id="keysContent" class="hidden">
                 <div id="keysContentInner"></div>
             </div>
@@ -794,7 +792,7 @@
         function hideSplash() {
             if (splashHidden) return;
             const elapsed = Date.now() - splashStartTime;
-            const minDisplay = 3000; // 3 секунды
+            const minDisplay = 3000;
             if (elapsed >= minDisplay) {
                 splash.classList.add('hidden');
                 setTimeout(() => { splash.style.display = 'none'; }, 800);
@@ -815,7 +813,6 @@
             }
         }
 
-        // Принудительный таймер на 3 секунды
         splashForceTimer = setTimeout(() => {
             if (!splashHidden) {
                 splash.classList.add('hidden');
@@ -1218,7 +1215,9 @@
         document.getElementById('setupInstalled').addEventListener('click', () => navigateTo('keys'));
 
         // ================================================================
-        //  КЛЮЧИ (НОВАЯ СТРУКТУРА с igareck BLACK/WHITE)
+        //  КЛЮЧИ
+        //  - ОСНОВНОЙ ВАРИАНТ: igareck (BLACK / WHITE)
+        //  - Запасной вариант (архив): rjsxrd, zieng2, igareck
         // ================================================================
 
         const keysProviderMenu = document.getElementById('keysProviderMenu');
@@ -1227,6 +1226,7 @@
         const keysBackBtn = document.getElementById('keysBack');
 
         let currentProviderLevel = 'main';
+        let igareckOrigin = 'main';
 
         function resetKeysView() {
             keysProviderMenu.classList.remove('hidden');
@@ -1234,9 +1234,19 @@
             keysContentInner.innerHTML = '';
             keysBackBtn.textContent = '← Назад';
             currentProviderLevel = 'main';
+            igareckOrigin = 'main';
         }
 
-        function showBackupSubMenu() {
+        // ---------- ОСНОВНОЙ ВАРИАНТ: только igareck ----------
+        function showMainProvider() {
+            igareckOrigin = 'main';
+            keysProviderMenu.classList.add('hidden');
+            keysContent.classList.remove('hidden');
+            showIgareckSubMenu('main');
+        }
+
+        // ---------- ЗАПАСНОЙ ВАРИАНТ (архив): rjsxrd, zieng2, igareck ----------
+        function showBackupProvider() {
             keysProviderMenu.classList.add('hidden');
             keysContent.classList.remove('hidden');
             keysContentInner.innerHTML = `
@@ -1245,6 +1255,13 @@
                         <span class="btn-content">
                             <svg class="icon-svg" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
                             rjsxrd
+                        </span>
+                        <span class="arrow">→</span>
+                    </div>
+                    <div class="menu-btn" id="backupSubZieng" role="button" tabindex="0">
+                        <span class="btn-content">
+                            <svg class="icon-svg" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                            zieng2
                         </span>
                         <span class="arrow">→</span>
                     </div>
@@ -1260,11 +1277,17 @@
             keysBackBtn.textContent = '← Назад к выбору';
             currentProviderLevel = 'backup-select';
 
-            document.getElementById('backupSubRjs').addEventListener('click', () => showKeysForProvider('rjsxrd'));
-            document.getElementById('backupSubIgareck').addEventListener('click', () => showIgareckSubMenu());
+            document.getElementById('backupSubRjs').addEventListener('click', renderRjsKeys);
+            document.getElementById('backupSubZieng').addEventListener('click', renderZiengKeys);
+            document.getElementById('backupSubIgareck').addEventListener('click', () => {
+                igareckOrigin = 'backup';
+                showIgareckSubMenu('backup');
+            });
         }
 
-        function showIgareckSubMenu() {
+        // ---------- ПОДМЕНЮ IGARECK: BLACK / WHITE ----------
+        function showIgareckSubMenu(origin) {
+            if (origin) igareckOrigin = origin;
             keysContentInner.innerHTML = `
                 <div style="display:flex;flex-direction:column;gap:10px;margin-top:8px;">
                     <div class="menu-btn" id="igareckSubBlack" role="button" tabindex="0">
@@ -1283,13 +1306,14 @@
                     </div>
                 </div>
             `;
-            keysBackBtn.textContent = '← Назад к выбору';
+            keysBackBtn.textContent = (igareckOrigin === 'main') ? '← Назад к выбору' : '← Назад к архиву';
             currentProviderLevel = 'igareck-select';
 
             document.getElementById('igareckSubBlack').addEventListener('click', () => renderIgareckCategory('black'));
             document.getElementById('igareckSubWhite').addEventListener('click', () => renderIgareckCategory('white'));
         }
 
+        // ---------- КАТЕГОРИЯ IGARECK (BLACK / WHITE) ----------
         function renderIgareckCategory(category) {
             const files = category === 'black' ? [
                 { label: 'BLACK_SS+All_RUS', link: 'https://raw.githubusercontent.com/igareck/vpn-configs-for-russia/main/BLACK_SS%2BAll_RUS.txt' },
@@ -1335,16 +1359,11 @@
             });
         }
 
-        function showKeysForProvider(provider) {
-            if (provider === 'rjsxrd') {
-                renderRjsKeys();
-            }
-        }
-
+        // ---------- RJSXRD ----------
         function renderRjsKeys() {
             let html = `
                 <div class="key-section">
-                    <div class="key-section-title">Запасной вариант — rjsxrd</div>
+                    <div class="key-section-title">rjsxrd</div>
                     <div class="key-row">
                         <div class="key-btn bypass" data-key="all">Все серверы</div>
                     </div>
@@ -1359,7 +1378,7 @@
                 </div>
             `;
             keysContentInner.innerHTML = html;
-            keysBackBtn.textContent = '← Назад';
+            keysBackBtn.textContent = '← Назад к архиву';
             currentProviderLevel = 'rjsxrd';
 
             const btns = keysContentInner.querySelectorAll('.key-btn[data-key]');
@@ -1385,16 +1404,11 @@
             });
         }
 
-        function showMainProvider() {
-            keysProviderMenu.classList.add('hidden');
-            keysContent.classList.remove('hidden');
-            renderZiengKeys();
-        }
-
+        // ---------- ZIENG2 ----------
         function renderZiengKeys() {
             const html = `
                 <div class="key-section">
-                    <div class="key-section-title">Основной вариант (zieng2)</div>
+                    <div class="key-section-title">zieng2</div>
                     <div class="key-row">
                         <div class="key-btn lite" data-key="lite">LITE</div>
                         <div class="key-btn universal" data-key="universal">UNIVERSAL</div>
@@ -1403,7 +1417,7 @@
                 </div>
             `;
             keysContentInner.innerHTML = html;
-            keysBackBtn.textContent = '← Назад';
+            keysBackBtn.textContent = '← Назад к архиву';
             currentProviderLevel = 'zieng2';
 
             const btns = keysContentInner.querySelectorAll('.key-btn[data-key]');
@@ -1422,6 +1436,7 @@
             });
         }
 
+        // ---------- Общая функция отображения ключа ----------
         function showKey(containerId, label, link) {
             const container = document.getElementById(containerId);
             if (!container) return;
@@ -1444,24 +1459,37 @@
             }
         }
 
+        // ---------- Обработчики кнопок выбора ----------
         document.getElementById('keysProviderMain').addEventListener('click', showMainProvider);
-        document.getElementById('keysProviderBackup').addEventListener('click', showBackupSubMenu);
+        document.getElementById('keysProviderBackup').addEventListener('click', showBackupProvider);
 
+        // ---------- Кнопка "Назад" ----------
         keysBackBtn.addEventListener('click', () => {
-            if (currentProviderLevel === 'main') {
-                navigateTo('main');
-            } else if (currentProviderLevel === 'backup-select') {
-                resetKeysView();
-            } else if (currentProviderLevel === 'zieng2') {
-                resetKeysView();
-            } else if (currentProviderLevel === 'rjsxrd') {
-                showBackupSubMenu();
-            } else if (currentProviderLevel === 'igareck-select') {
-                showBackupSubMenu();
-            } else if (currentProviderLevel === 'igareck-black' || currentProviderLevel === 'igareck-white') {
-                showIgareckSubMenu();
-            } else {
-                resetKeysView();
+            switch (currentProviderLevel) {
+                case 'main':
+                    navigateTo('main');
+                    break;
+                case 'backup-select':
+                    resetKeysView();
+                    break;
+                case 'zieng2':
+                case 'rjsxrd':
+                    showBackupProvider();
+                    break;
+                case 'igareck-select':
+                    if (igareckOrigin === 'backup') {
+                        showBackupProvider();
+                    } else {
+                        resetKeysView();
+                    }
+                    break;
+                case 'igareck-black':
+                case 'igareck-white':
+                    showIgareckSubMenu();
+                    break;
+                default:
+                    resetKeysView();
+                    break;
             }
         });
 
@@ -1500,7 +1528,7 @@
         document.getElementById('themesBack').addEventListener('click', () => navigateTo('profile'));
         document.getElementById('openThemesBtn').addEventListener('click', () => navigateTo('themes'));
 
-        console.log('Terch VPN — финальная версия: заставка 3 секунды с вибрацией, основные + запасной (rjsxrd и igareck)');
+        console.log('Terch VPN — иконка ключа исправлена');
     </script>
 </body>
 </html>
